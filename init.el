@@ -1,4 +1,4 @@
-(add-to-list 'load-path (expand-file-name "~/.emacs.d"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
 ;;;; etags-select
 (load "etags-select.el")
@@ -31,7 +31,13 @@
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 ;;;; Load google-specific bits
-(load-file (expand-file-name "~/.emacs.d/init-google.el"))
+(load "init-google.el")
+
+
+;;;; Unofficial Elpa archives
+(require 'package)
+(add-to-list 'package-archives
+   '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 
 (custom-set-variables
