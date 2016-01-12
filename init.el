@@ -5,8 +5,8 @@
 
 (add-to-list 'tags-table-list (concat default-directory "TAGS"))
 
-; Enable Semantic
-(semantic-mode 1)
+;;;; Enable Semantic (semantic doesn't work if Java file contains generics)
+; (semantic-mode 1)
 
 (require 'ido)
 (ido-mode t)
@@ -18,3 +18,15 @@
 
 ;;;; Load google-specific bits
 (load-file (expand-file-name "~/.emacs.d/init-google.el"))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
