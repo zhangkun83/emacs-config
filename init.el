@@ -11,19 +11,12 @@
 
 (add-to-list 'tags-table-list (concat default-directory "TAGS"))
 
-;;;; Enable Semantic (semantic doesn't work if Java file contains generics)
-; (semantic-mode 1)
+;;;; Don't enable semantic (semantic doesn't work if Java file contains generics)
+;;(semantic-mode 1)
 
 ;;;; The ido mode for more interactive searching
 (require 'ido)
 (ido-mode t)
-
-
-;;;; Java outline regexp
-(add-hook 'java-mode-hook
-  (lambda ()
-    "Enable Java outline."
-    (setq outline-regexp "\\(?:\\([ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)\\|[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{\\)")))
 
 ;;;; Load lua-mode
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
@@ -33,11 +26,13 @@
 ;;;; Load google-specific bits
 (load "init-google.el")
 
-
-;;;; Unofficial Elpa archives
-(require 'package)
-(add-to-list 'package-archives
-   '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;;;; Turn on outline for these languages
+(add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
+(add-hook 'java-mode-hook
+  (lambda ()
+    "Enable Java outline."
+    (setq outline-regexp "\\(?:\\([ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)\\|[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{\\)")))
+(add-hook 'java-mode-hook 'outline-minor-mode)
 
 
 (custom-set-variables
