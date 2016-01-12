@@ -3,7 +3,7 @@
 (setq-default tags-case-fold-search nil)
 (setq-default case-fold-search nil)
 
-(add-to-list 'tags-table-list "TAGS")
+(add-to-list 'tags-table-list (concat default-directory "TAGS"))
 
 ; Enable Semantic
 (semantic-mode 1)
