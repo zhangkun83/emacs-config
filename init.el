@@ -1,4 +1,15 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/evil"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/evil/lib"))
+
+
+;;;; undo-tree.el is required by evil-mode
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+;;;; evil-mode
+(require 'evil)
+(evil-mode 1)
 
 ;;;; etags-select
 (load "etags-select.el")
