@@ -2,6 +2,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil/lib"))
 
+(set-default-font "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1")
 
 ;;;; undo-tree.el is required by evil-mode
 (require 'undo-tree)
