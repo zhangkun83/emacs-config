@@ -30,7 +30,7 @@
 (load "etags-select.el")
 (global-set-key "\M-?" 'etags-select-find-tag-at-point)
 (global-set-key "\M-." 'etags-select-find-tag)
-
+(define-key evil-normal-state-map "\C-]" 'etags-select-find-tag)
 
 ;;;; Always do case-sensitive search
 (setq-default tags-case-fold-search nil)
