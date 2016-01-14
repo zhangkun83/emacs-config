@@ -1,21 +1,31 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil/lib"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
 
+
+;;;; text font
 (set-default-font "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1")
+
+;;;; neotree (tree directory view)
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
 
 ;;;; undo-tree.el is required by evil-mode
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-;;;; evil-mode
+;;;; evil-mode (vim emulation)
 (require 'evil)
 (evil-mode 1)
 
-;;;; etags-select
+
+;;;; etags-select (better ctags search)
 (load "etags-select.el")
 (global-set-key "\M-?" 'etags-select-find-tag-at-point)
 (global-set-key "\M-." 'etags-select-find-tag)
+
 
 ;;;; Always do case-sensitive search
 (setq-default tags-case-fold-search nil)
@@ -23,20 +33,25 @@
 
 (add-to-list 'tags-table-list (concat default-directory "TAGS"))
 
+
 ;;;; Don't enable semantic (semantic doesn't work if Java file contains generics)
 ;;(semantic-mode 1)
+
 
 ;;;; The ido mode for more interactive searching
 (require 'ido)
 (ido-mode t)
+
 
 ;;;; Load lua-mode
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
+
 ;;;; Load google-specific bits
 (load "init-google.el")
+
 
 ;;;; Turn on outline for these languages
 (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
