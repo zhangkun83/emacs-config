@@ -1,11 +1,16 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil/lib"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/magit/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
 
 
 ;;;; text font
 (set-default-font "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1")
+
+;;;; magit (git integration)
+(require 'magit)
+
 
 ;;;; neotree (tree directory view)
 (require 'neotree)
