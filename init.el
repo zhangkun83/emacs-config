@@ -36,6 +36,8 @@
 (setq-default tags-case-fold-search nil)
 (setq-default case-fold-search nil)
 
+
+;;;; Load TAGS file under current directory
 (add-to-list 'tags-table-list (concat default-directory "TAGS"))
 
 
@@ -57,6 +59,11 @@
 ;;;; Load google-specific bits
 (load "init-google.el")
 
+
+;;; magit would complain about git-commit-mode being loaded. It is loaded from google-specific
+;;; the system config files, so I have to filter it out after it's added.
+(require 'dash)  ; provides --filter
+(setq load-path (--filter (not (string-match "/emacs-google-config/.*/git_modes" it)) load-path))
 
 ;;;; Turn on outline for these languages
 (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
