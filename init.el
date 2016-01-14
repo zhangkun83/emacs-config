@@ -12,9 +12,16 @@
 (require 'magit)
 
 
-;;;; neotree (tree directory view)
+;;; neotree (tree directory view)
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
+;; These key bindings conflict with evil-mode. Override them.
+(add-hook 'neotree-mode-hook
+          (lambda ()
+            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
 
 
 ;;;; undo-tree.el is required by evil-mode
