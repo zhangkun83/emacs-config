@@ -5,7 +5,9 @@
 
 ;;;; text font under linux
 (if (eq system-type 'gnu/linux)
-  (setq default-frame-alist '((font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1"))))
+  (setq default-frame-alist '(
+    (cursor-color . "#ffffff")
+    (font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1"))))
 
 ;;;; magit (git integration)
 (require 'magit)
@@ -85,5 +87,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(set-cursor-color "#ffffff")
