@@ -3,7 +3,22 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil/lib"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/magit/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
+(add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/color-themes"))
 
+
+;;; Load the solarized color theme
+(load-theme 'solarized t)
+;; Make new frames use the dark variant
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (let ((mode (if (display-graphic-p frame) 'dark 'dark)))
+              (set-frame-parameter frame 'background-mode mode)
+              (set-terminal-parameter frame 'background-mode mode))
+            (enable-theme 'solarized)))
+;; Make the first frame use the dark variant
+(set-frame-parameter nil 'background-mode 'dark)
+(set-terminal-parameter nil 'background-mode 'dark)
+(enable-theme 'solarized)
 
 ;;;; text font under linux
 (if (eq system-type 'gnu/linux)
@@ -89,11 +104,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (misterioso)))
+ '(custom-safe-themes
+   (quote
+    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -102,4 +115,5 @@
  ;; If there is more than one, they won't work right.
  )
 
-(set-cursor-color "#ffffff")
+;;; Use this to set cursor color if desired
+;; (set-cursor-color "#ffffff")
