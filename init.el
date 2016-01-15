@@ -9,6 +9,9 @@
     (cursor-color . "#ffffff")
     (font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1"))))
 
+;;; Always blink the cursor
+(blink-cursor-mode t)
+
 ;;;; magit (git integration)
 (require 'magit)
 
