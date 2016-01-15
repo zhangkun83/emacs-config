@@ -1,6 +1,4 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/evil"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/evil/lib"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/magit/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
 
@@ -16,29 +14,17 @@
 ;;; neotree (tree directory view)
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
-;; These key bindings conflict with evil-mode. Override them.
-(add-hook 'neotree-mode-hook
-          (lambda ()
-            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
 
-
-;;;; undo-tree.el is required by evil-mode
-(require 'undo-tree)
-(global-undo-tree-mode)
-
-;;;; evil-mode (vim emulation)
-(require 'evil)
-(evil-mode 1)
-
+;; Do not load evil-mode because I do not like inconsistent editing behavior between buffers.
+;; Also there is a issue that if you try to use :e to open a file under a non-existing directory,
+;; magit will mess up and prevent you from entering any command. Maybe
+;; re-enable evil-mode after I resolved this issue.
+;(load-file (expand-file-name "~/.emacs.d/lisp/enable-evil-mode.el"))
 
 ;;;; etags-select (better ctags search)
 (load "etags-select.el")
 (global-set-key "\M-?" 'etags-select-find-tag-at-point)
 (global-set-key "\M-." 'etags-select-find-tag)
-(define-key evil-normal-state-map "\C-]" 'etags-select-find-tag)
 
 ;;;; Always do case-sensitive search
 (setq-default tags-case-fold-search nil)
