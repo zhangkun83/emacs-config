@@ -5,9 +5,9 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
 
 
-;;;; text font
-;(set-default-font "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1")
-(set-default-font "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1")
+;;;; text font under linux
+(if (eq system-type 'gnu/linux)
+  (set-default-font "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1"))
 
 ;;;; magit (git integration)
 (require 'magit)
