@@ -7,7 +7,7 @@
 
 ;;;; text font under linux
 (if (eq system-type 'gnu/linux)
-  (set-default-font "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1"))
+  (setq default-frame-alist '((font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1"))))
 
 ;;;; magit (git integration)
 (require 'magit)
@@ -63,10 +63,8 @@
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
-
 ;;;; Load google-specific bits
 (load "init-google.el")
-
 
 ;;; magit would complain about git-commit-mode being loaded. It is loaded from google-specific
 ;;; the system config files, so I have to filter it out after it's added.
