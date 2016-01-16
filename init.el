@@ -7,7 +7,9 @@
 (if (eq system-type 'gnu/linux)
   (setq default-frame-alist '(
     (cursor-color . "#ffffff")
-    (font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1"))))
+    (font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1")))
+  (setq default-frame-alist '(
+    (cursor-color . "#ffffff"))))
 
 ;;; Always blink the cursor
 (blink-cursor-mode t)
