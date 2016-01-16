@@ -5,11 +5,13 @@
 
 ;;;; text font under linux
 (if (eq system-type 'gnu/linux)
-  (setq default-frame-alist '(
-    (cursor-color . "#ffffff")
-    (font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1")))
-  (setq default-frame-alist '(
-    (cursor-color . "#ffffff"))))
+    (setq default-frame-alist
+	  '((cursor-color . "#ffffff")
+	    (font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1")))
+  (progn
+    (setq default-frame-alist '((cursor-color . "#ffffff")))
+    (set-face-attribute 'default nil
+			:family "Roboto Mono" :height 145 :weight 'thin)))
 
 ;;; Always blink the cursor
 (blink-cursor-mode t)
