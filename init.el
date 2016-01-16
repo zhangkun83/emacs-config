@@ -1,6 +1,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/magit/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/groovy-modes"))
 
 ;;; Set font
 (if (eq system-type 'gnu/linux)
@@ -55,6 +56,13 @@
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+
+;;; Load groovy-mode
+(autoload 'groovy-mode "groovy-mode" "Major mode for editing Groovy code." t)
+(add-to-list 'auto-mode-alist '("\\.groovy\\'" . groovy-mode))
+(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
+
 
 ;;;; Load google-specific bits
 (load "init-google.el")
