@@ -1,0 +1,9 @@
+#!/bin/bash
+# Start emacs that runs a server
+if [ "$#" -lt 1 ]; then
+    echo "Usage: ems <server_name> [args...]"
+    exit 1
+fi
+server_name="$1"
+shift
+ZK_EMACS_SERVER_NAME="$server_name" emacs $*

@@ -108,3 +108,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(let ((env_server_name (getenv "ZK_EMACS_SERVER_NAME")))
+  (if env_server_name
+      (progn
+	(setq server-name (getenv "ZK_EMACS_SERVER_NAME"))
+	(server-start))
+    (warn "Server name was not specified. Won't start a server.")))

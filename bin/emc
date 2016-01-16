@@ -1,0 +1,9 @@
+#!/bin/bash
+# Runs an emacs client
+if [ "$#" -lt 1 ]; then
+  echo "Usage: emc <server_name> [args...]"
+  exit 1
+fi
+server_name="$1"
+shift
+emacsclient -nw -s "$server_name" $*
