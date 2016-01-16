@@ -2,19 +2,17 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/magit/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
 
-
-;;;; text font under linux
+;;; Set font
 (if (eq system-type 'gnu/linux)
-    (setq default-frame-alist
-	  '((cursor-color . "#ffffff")
-	    (font . "-xos4-terminus-medium-r-normal-*-17-*-*-*-*-*-iso8859-1")))
-  (progn
-    (setq default-frame-alist '((cursor-color . "#ffffff")))
+    ; For linux
     (set-face-attribute 'default nil
-			:family "Roboto Mono" :height 145 :weight 'thin)))
+			:family "Terminus" :height 135)
+    ; For Mac OS X
+    (set-face-attribute 'default nil
+			:family "Roboto Mono" :height 145 :weight 'thin))
 
-;;; Always blink the cursor
-(blink-cursor-mode t)
+(setq default-frame-alist '((cursor-color . "#ffffff")))
+
 
 ;;;; magit (git integration)
 (require 'magit)
