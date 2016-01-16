@@ -52,6 +52,12 @@
 (ido-mode t)
 
 
+;; ace-jump-mode for faster cursor movement
+(autoload 'ace-jump-mode "ace-jump-mode" "Emacs quick move minor mode" t)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(autoload 'ace-jump-mode-pop-mark "ace-jump-mode" "Ace jump back:-)" t)
+(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+
 ;;;; Load lua-mode
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-mode))
