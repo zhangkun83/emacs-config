@@ -114,4 +114,4 @@
       (progn
 	(setq server-name (getenv "ZK_EMACS_SERVER_NAME"))
 	(server-start))
-    (warn "Server name was not specified. Won't start a server.")))
+    (warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server.")))
