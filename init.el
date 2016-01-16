@@ -73,13 +73,21 @@
 (add-hook 'java-mode-hook 'show-paren-mode)
 
 
-;;; Quickly change to the initial directory
+;;; Quickly switch between the startup directory and current file's
 (defun zk-cd-initial()
   "Change to the initial directory from which emacs was started"
   (interactive)
   (cd command-line-default-directory)
-  (message command-line-default-directory))
+  (message default-directory))
 
+(defun zk-cd-current-buffer()
+  "Change to the directory of the current file"
+  (interactive)
+  (if buffer-file-name
+      (progn
+        (cd (file-name-directory buffer-file-name))
+        (message default-directory))
+    (message "Current buffer does not have a file")))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
