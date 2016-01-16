@@ -73,6 +73,14 @@
 (add-hook 'java-mode-hook 'show-paren-mode)
 
 
+;;; Quickly change to the initial directory
+(defun zk-cd-initial()
+  "Change to the initial directory from which emacs was started"
+  (interactive)
+  (cd command-line-default-directory)
+  (message command-line-default-directory))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
