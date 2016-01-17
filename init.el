@@ -124,5 +124,8 @@
   (if env_server_name
       (progn
 	(setq server-name (getenv "ZK_EMACS_SERVER_NAME"))
-	(server-start))
-    (warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server.")))
+	(server-start)
+	(setq frame-title-format '("%b - " server-name "@emacs")))
+    (progn
+      	(setq frame-title-format '("%b - emacs"))
+	(warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server."))))
