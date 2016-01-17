@@ -55,6 +55,15 @@
 (autoload 'ace-jump-mode-pop-mark "ace-jump-mode" "Ace jump back:-)" t)
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
+
+;;; Load markdown-mode
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+
 ;;;; Load lua-mode
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-mode))
