@@ -67,6 +67,7 @@ seconds of user inactivity.  That is not desirable."
         (with-current-buffer it
           (magit-turn-on-auto-revert-mode-if-desired)))
     (when (and buffer-file-name
+               (file-readable-p buffer-file-name)
                (magit-toplevel)
                (or (not magit-auto-revert-tracked-only)
                    (magit-file-tracked-p buffer-file-name)))
@@ -135,7 +136,8 @@ This function calls the hook `magit-auto-revert-mode-hook'.")
 
 (defun magit-auto-revert-buffers ()
   (when (and magit-auto-revert-immediately
-             (or magit-auto-revert-mode global-auto-revert-mode))
+             (or global-auto-revert-mode
+                 (and magit-auto-revert-mode auto-revert-buffer-list)))
     (auto-revert-buffers)))
 
 (custom-add-to-group 'magit 'auto-revert-check-vc-info 'custom-variable)

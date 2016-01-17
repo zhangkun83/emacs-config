@@ -24,9 +24,6 @@
 (global-set-key [f8] 'neotree-toggle)
 
 ;; Do not load evil-mode because I do not like inconsistent editing behavior between buffers.
-;; Also there is a issue that if you try to use :e to open a file under a non-existing directory,
-;; magit will mess up and prevent you from entering any command. Maybe
-;; re-enable evil-mode after I resolved this issue.
 ;(load-file (expand-file-name "~/.emacs.d/lisp/enable-evil-mode.el"))
 
 ;;;; etags-select (better ctags search)

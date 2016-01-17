@@ -129,15 +129,42 @@ at all."
   :group 'magit-status
   :type 'hook)
 
-(defcustom magit-status-refresh-hook nil
-  "Hook run after a status buffer has been refreshed."
-  :package-version '(magit . "2.1.0")
-  :group 'magit-status
-  :type 'hook)
+(defvar magit-status-refresh-hook nil
+  "Hook run after a status buffer has been refreshed.")
+
+(make-obsolete-variable 'magit-status-refresh-hook "\
+use `magit-pre-refresh-hook', `magit-post-refresh-hook',
+  `magit-refresh-buffer-hook', or `magit-status-mode-hook' instead.
+
+  If you want to run a function every time the status buffer is
+  refreshed, in order to do something with that buffer, then use:
+
+    (add-hook 'magit-refresh-buffer-hook
+              (lambda ()
+                (when (derived-mode-p 'magit-status-mode)
+                  ...)))
+
+  If your hook function should run regardless of whether the
+  status buffer exists or not, then use `magit-pre-refresh-hook'
+  or `magit-post-refresh-hook'.
+
+  If your hook function only has to be run once, when the buffer
+  is first created, then `magit-status-mode-hook' instead.
+" "Magit 2.4.0")
 
 (defcustom magit-status-expand-stashes t
   "Whether the list of stashes is expanded initially."
   :package-version '(magit . "2.3.0")
+  :group 'magit-status
+  :type 'boolean)
+
+(defcustom magit-status-show-hashes-in-headers t
+  "Whether headers in the status buffer show hashes.
+The functions which respect this option are
+`magit-insert-head-branch-header',
+`magit-insert-upstream-branch-header', and
+`magit-insert-push-branch-header'."
+  :package-version '(magit . "2.4.0")
   :group 'magit-status
   :type 'boolean)
 
@@ -496,6 +523,8 @@ detached `HEAD'."
       (if branch
           (magit-insert-section (branch branch)
             (insert (format "%-10s" "Head: "))
+            (when magit-status-show-hashes-in-headers
+              (insert (propertize commit 'face 'magit-hash) ?\s))
             (insert (propertize branch 'face 'magit-branch-local))
             (insert ?\s summary ?\n))
         (magit-insert-section (commit commit)
@@ -515,6 +544,8 @@ detached `HEAD'."
                           (if (magit-get-boolean "branch" branch "rebase")
                               "Rebase: "
                             "Merge: "))))
+      (when magit-status-show-hashes-in-headers
+        (insert (propertize (magit-rev-format "%h" pull) 'face 'magit-hash) ?\s))
       (insert (propertize pull 'face
                           (if (string= (magit-get "branch" branch "remote") ".")
                               'magit-branch-local
@@ -532,6 +563,8 @@ detached `HEAD'."
   (when push
     (magit-insert-section (branch push)
       (insert (format "%-10s" "Push: "))
+      (when magit-status-show-hashes-in-headers
+        (insert (propertize (magit-rev-format "%h" push) 'face 'magit-hash) ?\s))
       (insert (propertize push 'face 'magit-branch-remote) ?\s)
       (if (magit-rev-verify push)
           (insert (or (magit-rev-format "%s" push) ""))
