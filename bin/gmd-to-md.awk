@@ -1,4 +1,4 @@
-#!/usr/bin/env awk -f
+#!/usr/bin/awk -f
 # Convert github flavor markdown to basic markdown.
 # markdown.pl recoganize 4 leading spaces per line instead of ```
 # code blocks. So we convert ``` to <pre><code> instead.
