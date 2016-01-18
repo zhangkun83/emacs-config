@@ -1,11 +1,18 @@
-My emacs configuration.
+This is my Emacs configuration.
 
-I am using it with Emacs 24.5.1, built from source with `--with-x-toolkit=lucid`
+I am using it with Emacs 24.5.1.
 
 Installation
 ============
 
-tags
+Compiling Emacs
+---------------
+
+I prefer compiling Emacs from source, configured with `--with-x-toolkit=lucid`
+ and `--without-toolkit-scroll-bars`. The lucid toolkit has a slick
+ look-and-feel, but its scroll bar is too ugly so I would disable it.
+
+Tags
 ----
 
 Either **etags** or the **ctags** that comes with major Linux
@@ -16,14 +23,14 @@ does parse Java generics correctly, but is buggy. I find
 Font
 ----
 
-To configure the font of the gui (menu etc), append `xresources` to
+To configure the font of the GUI (menu etc), append `xresources` to
 `~/.xresources`([ref](http://www.nongnu.org/emacsdoc-fr/manuel/lucid-resources.html)).
 Run `xrdb ~/.xresources` to load it.
 
 On linux i use **terminus** as the main font, which is an x11 core
 font. On ubuntu, it is in the `xfonts-terminus` package.
 
-supporting scripts
+Supporting scripts
 ------------------
 
 Create symbolic links under any directory in your search path, for the
