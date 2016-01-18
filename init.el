@@ -2,6 +2,11 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/magit/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/groovy-modes"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/org/lisp"))
+
+
+;;; Org-mode
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;;; Set font
 (if (eq system-type 'gnu/linux)
