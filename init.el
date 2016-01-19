@@ -78,10 +78,6 @@
 (add-to-list 'auto-mode-alist '("\\.groovy\\'" . groovy-mode))
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
 
-
-;;;; Load google-specific bits
-(load "init-google.el")
-
 ;;; magit would complain about git-commit-mode being loaded. It is loaded from google-specific
 ;;; the system config files, so I have to filter it out after it's added.
 (require 'dash)  ; provides --filter
@@ -132,6 +128,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;;; Load site-specific bits
+(load "init-site.el")
 
 (let ((env_server_name (getenv "ZK_EMACS_SERVER_NAME")))
   (if env_server_name

@@ -1,6 +1,6 @@
 /auto-save-list
 /elpa
-/lisp/init-google.el
+/lisp/init-site.el
 **/*~
 /ido.*
 /url
