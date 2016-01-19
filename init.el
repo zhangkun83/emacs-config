@@ -22,7 +22,7 @@
 
 ;;;; magit (git integration)
 (require 'magit)
-
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;;; neotree (tree directory view)
 (require 'neotree)
