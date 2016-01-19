@@ -36,10 +36,8 @@
 (global-set-key "\M-?" 'etags-select-find-tag-at-point)
 (global-set-key "\M-." 'etags-select-find-tag)
 
-;;;; Always do case-sensitive search
+;;; Always do case-sensitive search for tags
 (setq-default tags-case-fold-search nil)
-(setq-default case-fold-search nil)
-
 
 ;;;; Load TAGS file under current directory
 (add-to-list 'tags-table-list (concat default-directory "TAGS"))
