@@ -8,9 +8,10 @@ Installation
 Compiling Emacs
 ---------------
 
-I prefer compiling Emacs from source, configured with `--with-x-toolkit=lucid`
- and `--without-toolkit-scroll-bars`. The lucid toolkit has a slick
- look-and-feel, but its scroll bar is too ugly so I would disable it.
+I prefer compiling Emacs from source, configured with
+ `--with-x-toolkit=lucid` and `--without-xaw3d`. The lucid toolkit has
+ a slick look-and-feel, but its 3D scroll bar is so ugly that I would
+ disable it.
 
 Tags
 ----
