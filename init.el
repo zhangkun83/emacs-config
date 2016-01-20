@@ -12,7 +12,7 @@
 (if (eq system-type 'gnu/linux)
     ; For linux
     (set-face-attribute 'default nil
-			:family "Terminus" :height 135)
+			:family "DejaVu Sans Mono" :height 135)
     ; For Mac OS X
     (set-face-attribute 'default nil
 			:family "Roboto Mono" :height 145 :weight 'thin))
