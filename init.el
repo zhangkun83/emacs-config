@@ -27,12 +27,13 @@
 (if (eq system-type 'gnu/linux)
     ; For linux
     (set-face-attribute 'default nil
-			:family "DejaVu Sans Mono" :height 135)
+			:family "DejaVu Sans Mono" :height 130)
     ; For Mac OS X
     (set-face-attribute 'default nil
 			:family "Roboto Mono" :height 145 :weight 'thin))
 
-(setq default-frame-alist '((cursor-color . "#ffffff")))
+;;; Use this to set cursor color if desired
+;(setq default-frame-alist '((cursor-color . "#ffffff")))
 
 
 ;;;; magit (git integration)
@@ -149,5 +150,3 @@
     (progn
       	(setq frame-title-format '("%b - emacs"))
 	(warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server."))))
-;;; Use this to set cursor color if desired
-;; (set-cursor-color "#ffffff")
