@@ -78,11 +78,6 @@
 (add-to-list 'auto-mode-alist '("\\.groovy\\'" . groovy-mode))
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
 
-;;; magit would complain about git-commit-mode being loaded. It is loaded from google-specific
-;;; the system config files, so I have to filter it out after it's added.
-(require 'dash)  ; provides --filter
-(setq load-path (--filter (not (string-match "/emacs-google-config/.*/git_modes" it)) load-path))
-
 ;;;; Turn on outline for these languages
 (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
