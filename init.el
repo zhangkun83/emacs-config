@@ -30,7 +30,7 @@
 			:family "DejaVu Sans Mono" :height 130)
     ; For Mac OS X
     (set-face-attribute 'default nil
-			:family "Roboto Mono" :height 145 :weight 'thin))
+			:family "Roboto Mono" :height 145 :weight 'regular))
 
 ;;; Use this to set cursor color if desired
 ;(setq default-frame-alist '((cursor-color . "#ffffff")))
