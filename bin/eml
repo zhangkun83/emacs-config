@@ -1,11 +1,9 @@
 #!/bin/bash
 # List all running emacs servers
 serverdir="${TMPDIR:-/tmp}/emacs${UID}"
-declare -a servers
 for file in ${serverdir}/*; do
   if [[ -S ${file} ]]; then
-    servers+=("${file##*/}")  
+    echo "${file##*/}"
   fi
 done
 
-echo "${servers[@]}"
