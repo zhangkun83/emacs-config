@@ -3,6 +3,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/groovy-modes"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/helm"))
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/color-themes"))
 
 
@@ -63,9 +64,13 @@
 ;;(semantic-mode 1)
 
 
-;;;; The ido mode for more interactive searching
-(require 'ido)
-(ido-mode t)
+;;; Helm provides incremental completion and selection
+(require 'helm-config)
+(helm-mode 1)
+(global-set-key (kbd "M-x") 'undefined)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
 
 
 ;; ace-jump-mode for faster cursor movement
@@ -120,6 +125,11 @@
         (cd (file-name-directory buffer-file-name))
         (message default-directory))
     (message "Current buffer does not have a file")))
+
+(defun zk-helm-set-project-root(f)
+  "Set project root for helm"
+  (interactive "DProject root: ")
+  (setq helm-locate-project-list (list f)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
