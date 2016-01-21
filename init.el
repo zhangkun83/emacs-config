@@ -141,11 +141,15 @@
 ;;; Load site-specific bits
 (load "init-site.el")
 
+
+;;; Start a server
 (let ((env_server_name (getenv "ZK_EMACS_SERVER_NAME")))
   (if env_server_name
       (progn
 	(setq server-name (getenv "ZK_EMACS_SERVER_NAME"))
 	(server-start)
+	(setenv "EDITOR" (concat "open-in-emacs-server " server-name))
+	(setenv "P4EDITOR" (concat "open-in-emacs-server " server-name))
 	(setq frame-title-format '("%b - " server-name "@emacs")))
     (progn
       	(setq frame-title-format '("%b - emacs"))
