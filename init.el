@@ -110,6 +110,23 @@
 (add-hook 'java-mode-hook 'show-paren-mode)
 
 
+;;; Detection of Java stack traces in compilation-mode
+;;; TODO source files are not always under "/src", it should be customizable
+;;; TODO should also support .groovy
+(defvar java-stack-trace-dir "src/")
+(defun java-stack-trace-regexp-to-filename ()
+  "Generates a relative filename from java-stack-trace regexp match data."
+  (concat java-stack-trace-dir
+          (replace-regexp-in-string "\\." "/" (match-string 1))
+          (match-string 2)))
+
+(add-to-list 'compilation-error-regexp-alist 'java-stack-trace)
+(add-to-list 'compilation-error-regexp-alist-alist
+  '(java-stack-trace .
+    ("^[[:space:]]*at \\(\\(?:[[:lower:]]+\\.\\)+\\)[^(]+(\\([[:alnum:]]+\\.java\\):\\([[:digit:]]+\\))"
+     java-stack-trace-regexp-to-filename 3)))
+
+
 ;;; Quickly switch between the startup directory and current file's
 (defun zk-cd-initial()
   "Change to the initial directory from which emacs was started"
