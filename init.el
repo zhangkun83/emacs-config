@@ -131,9 +131,9 @@
   (interactive "DProject root: ")
   (setq helm-locate-project-list (list f)))
 
+
 ; Setup auto-saving desktop, which is unfortunately necessary because emacs
 ; occasionally freezes when idle.
-; TODO figure out how to save shell buffers
 (require 'desktop)
 
 (defun zk-save-everything()
@@ -144,11 +144,27 @@
     (desktop-save-in-desktop-dir)))
 (global-set-key [f6] 'zk-save-everything)
 
-
 (defun zk-restore-desktop(bool)
   "Restore the desktop previously saved for the server with the same name"
-  (interactive (list (y-or-n-p (concat "Load the desktop saved in " desktop-dirname "? "))))
+  (interactive (list (y-or-n-p (concat "Load the desktop from " desktop-dirname "? "))))
   (if bool (desktop-read desktop-dirname)))
+
+
+;;; Make desktop-save able to save shell buffers
+(defun zk-shell-save-desktop-buffer (desktop-dirname)
+  default-directory)
+
+(defun zk-shell-restore-desktop-buffer (file-name buffer-name directory)
+  (setq default-directory directory)
+  (shell buffer-name))
+
+(add-hook 'shell-mode-hook
+	  (lambda ()
+	    (make-local-variable 'desktop-save-buffer)
+	    (setq desktop-save-buffer 'zk-shell-save-desktop-buffer)))
+
+(add-to-list 'desktop-buffer-mode-handlers '(shell-mode . zk-shell-restore-desktop-buffer))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
