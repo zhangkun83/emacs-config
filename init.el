@@ -131,6 +131,25 @@
   (interactive "DProject root: ")
   (setq helm-locate-project-list (list f)))
 
+; Setup auto-saving desktop, which is unfortunately necessary because emacs
+; occasionally freezes when idle.
+; TODO figure out how to save shell buffers
+(require 'desktop)
+
+(defun zk-save-everything()
+  "Save all files and the desktop"
+  (interactive)
+  (progn
+    (save-some-buffers)
+    (desktop-save-in-desktop-dir)))
+(global-set-key [f6] 'zk-save-everything)
+
+
+(defun zk-restore-desktop(bool)
+  "Restore the desktop previously saved for the server with the same name"
+  (interactive (list (y-or-n-p (concat "Load the desktop saved in " desktop-dirname "? "))))
+  (if bool (desktop-read desktop-dirname)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -160,7 +179,9 @@
 	(server-start)
 	(setenv "EDITOR" (concat "open-in-emacs-server " server-name))
 	(setenv "P4EDITOR" (concat "open-in-emacs-server " server-name))
-	(setq frame-title-format '("%b - " server-name "@emacs")))
+	(setq frame-title-format '("%b - " server-name "@emacs"))
+	(setq desktop-dirname (concat "~/.emacs.d/saved-desktops/" server-name))
+	(make-directory desktop-dirname t))
     (progn
       	(setq frame-title-format '("%b - emacs"))
 	(warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server."))))
