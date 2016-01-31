@@ -174,6 +174,9 @@
 (load "init-site.el")
 
 
+;;; Make git use "cat" instead of "less"
+(setenv "PAGER" "cat")
+
 ;;; Start a server
 (let ((env_server_name (getenv "ZK_EMACS_SERVER_NAME")))
   (if env_server_name
