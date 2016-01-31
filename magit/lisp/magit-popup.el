@@ -12,7 +12,7 @@
 ;; Author: Jonas Bernoulli <jonas@bernoul.li>
 ;; Maintainer: Jonas Bernoulli <jonas@bernoul.li>
 
-;; Package-Requires: ((emacs "24.4") (async "20150909.2257") (dash "20151021.113"))
+;; Package-Requires: ((emacs "24.4") (async "1.5") (dash "2.12.1"))
 ;; Keywords: bindings
 ;; Homepage: https://github.com/magit/magit
 
@@ -248,7 +248,7 @@ make it impossible to invoke certain actions.")
 
 (define-button-type 'magit-popup-variable-button
   'supertype 'magit-popup-button
-  'function  'magit-invoke-popup-variable
+  'function  'magit-invoke-popup-action
   'property  :variables
   'heading   "Variables\n"
   'formatter 'magit-popup-format-variable-button

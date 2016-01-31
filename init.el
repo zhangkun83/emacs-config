@@ -108,6 +108,10 @@
     (setq outline-regexp "\\(?:\\([ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)\\|[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{\\)")))
 (add-hook 'java-mode-hook 'outline-minor-mode)
 (add-hook 'java-mode-hook 'show-paren-mode)
+(add-hook 'java-mode-hook
+	  (lambda ()
+	    "Set fill width for Java."
+	    (set-fill-column 100)))
 
 
 ;;; Detection of Java stack traces in compilation-mode
@@ -148,6 +152,28 @@
   (interactive "DProject root: ")
   (setq helm-locate-project-list (list f)))
 
+
+; Setup auto-saving desktop, which is unfortunately necessary because emacs
+; occasionally freezes when idle.
+(require 'desktop)
+
+(defun zk-save-everything()
+  "Save all files and the desktop"
+  (interactive)
+  (progn
+    (save-some-buffers)
+    (desktop-save-in-desktop-dir)))
+(global-set-key [f6] 'zk-save-everything)
+
+(defun zk-restore-desktop(bool)
+  "Restore the desktop previously saved for the server with the same name"
+  (interactive (list (y-or-n-p (concat "Load the desktop from " desktop-dirname "? "))))
+  (if bool (desktop-read desktop-dirname)))
+
+;;; Allow shell buffers' contents to be saved
+(require 'zk-desktop-save-shell)
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -169,6 +195,9 @@
 (load "init-site.el")
 
 
+;;; Make git use "cat" instead of "less"
+(setenv "PAGER" "cat")
+
 ;;; Start a server
 (let ((env_server_name (getenv "ZK_EMACS_SERVER_NAME")))
   (if env_server_name
@@ -177,7 +206,9 @@
 	(server-start)
 	(setenv "EDITOR" (concat "open-in-emacs-server " server-name))
 	(setenv "P4EDITOR" (concat "open-in-emacs-server " server-name))
-	(setq frame-title-format '("%b - " server-name "@emacs")))
+	(setq frame-title-format '("%b - " server-name "@emacs"))
+	(setq desktop-dirname (concat "~/.emacs.d/saved-desktops/" server-name))
+	(make-directory desktop-dirname t))
     (progn
       	(setq frame-title-format '("%b - emacs"))
 	(warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server."))))
