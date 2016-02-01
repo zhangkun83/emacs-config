@@ -128,6 +128,11 @@
     (message "Current buffer does not have a file"))
 )
 
+;; For jumping quickly back to project-root in shells.
+;; Also used by gradlez script
+(require 'zk)
+(setenv "ZK_PROJECT_ROOT" zk-project-root)
+
 ; Java stacktrace detection in compilation-minor-mode
 (require 'zk-java-stacktrace)
 (global-set-key (kbd "C-x \\") 'compilation-minor-mode)

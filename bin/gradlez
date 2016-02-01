@@ -3,6 +3,9 @@
 # 1) Finds a gradlew script in a ancestor directory and uses it.
 # 2) Displays gradle's stdout and stderr separately to prevent a compile error (stderr)
 # showing in the same line a progress output (stdout), messing up with path detection.
-TMP_FILE=$(mktemp)
-$(git rev-parse --show-toplevel)/gradlew $* 2> $TMP_FILE; cat $TMP_FILE
-rm $TMP_FILE
+if [ -n "$ZK_PROJECT_ROOT" ]; then
+    cd "$ZK_PROJECT_ROOT"
+fi
+TMP_FILE="$(mktemp)"
+$(git rev-parse --show-toplevel)/gradlew $* 2> "$TMP_FILE"; cat "$TMP_FILE"
+rm "$TMP_FILE"
