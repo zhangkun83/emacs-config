@@ -20,8 +20,9 @@ and let user choose one if there are multiple matches"
 		  ;; e.g., bash -c 'fgrep \'io/grpc/Metadata.java\' <project_root>/SRCFILES; echo -n'
 		  ;; The "echo -n" is to erase the return code 1 of grep when there is no match.
 		  ;; Emacs is not happy with non-zero return codes.
-		  (process-lines "bash" "-c" (concat "fgrep '" relative-path "' " zk-project-root "/SRCFILES; echo -n")))))
+		  (process-lines "bash" "-c" (concat "fgrep '" relative-path "' '" zk-project-root "/SRCFILES'; echo -n")))))
     (progn
+      (message "Candidates: %s" candidates)
       (if (> (length candidates) 1)
 	  (warn "More than one candidates for %s: %s . The first one will be chosen.
  Double-check your generation rule of SRCFILES."

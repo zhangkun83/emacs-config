@@ -1,4 +1,4 @@
-(defvar zk-project-root command-line-default-directory
+(defvar zk-project-root (expand-file-name command-line-default-directory)
   "The root directory of a project. TAGS and SRCFILES are located here.")
 
 (defun zk-set-project-root(f)
@@ -14,7 +14,7 @@
   "Find a src file indexed in SRCFILES of this project."
   (interactive
    (list (completing-read "Find a src file: "
-                          (process-lines "bash" "-c" (concat "cat '" (expand-file-name zk-project-root) "/SRCFILES'; echo -n")))))
+                          (process-lines "bash" "-c" (concat "cat '" zk-project-root "/SRCFILES'; echo -n")))))
   (find-file f))
 
 (provide 'zk)
