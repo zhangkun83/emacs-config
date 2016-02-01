@@ -56,9 +56,6 @@
 ;;; Always do case-sensitive search for tags
 (setq-default tags-case-fold-search nil)
 
-;;;; Load TAGS file under current directory
-(add-to-list 'tags-table-list (concat default-directory "TAGS"))
-
 
 ;;;; Don't enable semantic (semantic doesn't work if Java file contains generics)
 ;;(semantic-mode 1)
@@ -128,13 +125,8 @@
       (progn
         (cd (file-name-directory buffer-file-name))
         (message default-directory))
-    (message "Current buffer does not have a file")))
-
-(defun zk-helm-set-project-root(f)
-  "Set project root for helm"
-  (interactive "DProject root: ")
-  (setq helm-locate-project-list (list f)))
-
+    (message "Current buffer does not have a file"))
+)
 
 ; Java stacktrace detection in compilation-minor-mode
 (require 'zk-java-stacktrace)
