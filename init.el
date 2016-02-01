@@ -1,6 +1,5 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/magit/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/neotree"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/groovy-modes"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/helm"))
@@ -40,10 +39,6 @@
 ;;;; magit (git integration)
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
-
-;;; neotree (tree directory view)
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
 
 ;; Do not load evil-mode because I do not like inconsistent editing behavior between buffers.
 ;(load-file (expand-file-name "~/.emacs.d/lisp/enable-evil-mode.el"))
@@ -133,9 +128,10 @@
 (require 'zk)
 (setenv "ZK_PROJECT_ROOT" zk-project-root)
 
-; Java stacktrace detection in compilation-minor-mode
+; Java stacktrace detection in compilation-mode
 (require 'zk-java-stacktrace)
-(global-set-key (kbd "C-x \\") 'compilation-minor-mode)
+(global-set-key (kbd "C-x \\") 'compile)
+(global-set-key (kbd "C-x |") 'compilation-minor-mode)
 
 ; Setup auto-saving desktop, which is unfortunately necessary because emacs
 ; occasionally freezes when idle.
