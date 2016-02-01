@@ -1,0 +1,8 @@
+#!/bin/bash
+#Generates TAGS and SRCFILES to be used by Emacs zk-* features.
+
+rm SRCFILES
+# Always generate absolute paths, use $PWD instead of .
+find $PWD | grep "\\/src\\/.*\\.\\(\\(groovy\\)\\|\\(java\\)\\)$" > SRCFILES
+# ctags.io is the best ctags implementation that I know
+ctags -e -L - < SRCFILES
