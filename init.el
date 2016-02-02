@@ -8,6 +8,9 @@
 ;; Disable tool-bar
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
+;; Disable scroll bar
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
 ;;; Load the solarized color theme
 (load-theme 'solarized t)
 ;; Make new frames use the light variant
