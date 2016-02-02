@@ -5,6 +5,8 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/helm"))
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/color-themes"))
 
+;; Disable tool-bar
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
 ;;; Load the solarized color theme
 (load-theme 'solarized t)
@@ -91,7 +93,7 @@
 (add-to-list 'auto-mode-alist '("\\.groovy\\'" . groovy-mode))
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
 
-;;;; Turn on outline for these languages
+;;; Turn on outline and showing matching parentheses for these languages.
 (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
 (add-hook 'java-mode-hook
