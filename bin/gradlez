@@ -7,5 +7,8 @@ if [ -n "$ZK_PROJECT_ROOT" ]; then
     cd "$ZK_PROJECT_ROOT"
 fi
 TMP_FILE="$(mktemp)"
-$(git rev-parse --show-toplevel)/gradlew $* 2> "$TMP_FILE"; cat "$TMP_FILE"
+$(git rev-parse --show-toplevel)/gradlew $* 2> "$TMP_FILE"
+BUILD_RET=$?
+cat "$TMP_FILE"
 rm "$TMP_FILE"
+exit $BUILD_RET
