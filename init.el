@@ -96,6 +96,11 @@
 (add-to-list 'auto-mode-alist '("\\.groovy\\'" . groovy-mode))
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
 
+
+;; Display line and column numbers on status bar
+(setq column-number-mode t)
+
+
 ;;; Turn on outline and showing matching parentheses for these languages.
 (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
