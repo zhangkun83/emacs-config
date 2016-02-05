@@ -107,8 +107,11 @@
 (add-hook 'java-mode-hook 'show-paren-mode)
 (add-hook 'java-mode-hook
 	  (lambda ()
-	    "Set fill width for Java."
-	    (set-fill-column 100)))
+	    "A few code-style parameters for Java"
+	    (set-fill-column 100)
+	    (setq c-basic-offset 2
+		  tab-width 2
+		  indent-tabs-mode nil)))
 
 
 ;;; Quickly switch between the startup directory and current file's
