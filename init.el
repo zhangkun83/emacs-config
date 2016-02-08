@@ -5,6 +5,9 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/helm"))
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/color-themes"))
 
+;; Load site-specific bits
+(load "init-site.el")
+
 ;; Disable tool-bar
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
@@ -185,9 +188,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;;; Load site-specific bits
-(load "init-site.el")
 
 
 ;;; Make git use "cat" instead of "less"
