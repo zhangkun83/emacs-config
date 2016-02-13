@@ -35,7 +35,7 @@
 (if (eq system-type 'gnu/linux)
     ; For linux
     (set-face-attribute 'default nil
-			:family "DejaVu Sans Mono" :height 130)
+			:family "Inconsolata" :height 130 :weight 'bold)
     ; For Mac OS X
     (set-face-attribute 'default nil
 			:family "Roboto Mono" :height 145 :weight 'regular))
