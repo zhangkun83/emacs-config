@@ -38,7 +38,7 @@
 			:family "Inconsolata" :height 130 :weight 'bold)
     ; For Mac OS X
     (set-face-attribute 'default nil
-			:family "Roboto Mono" :height 145 :weight 'regular))
+			:family "Roboto Mono" :height 130 :weight 'regular))
 
 ;;; Use this to set cursor color if desired
 ;(setq default-frame-alist '((cursor-color . "#ffffff")))
