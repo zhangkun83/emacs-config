@@ -21,7 +21,7 @@
 (if (eq system-type 'gnu/linux)
     ; For linux
     (set-face-attribute 'default nil
-			:family "Liberation Mono" :height 130 :weight 'regular)
+			:family "Droid Sans Mono" :height 120 :weight 'regular)
     ; For Mac OS X
     (set-face-attribute 'default nil
 			:family "Roboto Mono" :height 130 :weight 'regular))
