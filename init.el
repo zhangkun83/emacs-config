@@ -14,20 +14,6 @@
 ;; Disable scroll bar
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-;;; Load the solarized color theme
-(load-theme 'solarized t)
-;; Make new frames use the light variant
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (let ((mode (if (display-graphic-p frame) 'light 'light)))
-              (set-frame-parameter frame 'background-mode mode)
-              (set-terminal-parameter frame 'background-mode mode))
-            (enable-theme 'solarized)))
-;; Make the first frame use the dark variant
-(set-frame-parameter nil 'background-mode 'light)
-(set-terminal-parameter nil 'background-mode 'light)
-(enable-theme 'solarized)
-
 ;;; Org-mode
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
@@ -35,13 +21,10 @@
 (if (eq system-type 'gnu/linux)
     ; For linux
     (set-face-attribute 'default nil
-			:family "Inconsolata" :height 130 :weight 'bold)
+			:family "Terminus" :height 130 :weight 'regular)
     ; For Mac OS X
     (set-face-attribute 'default nil
 			:family "Roboto Mono" :height 130 :weight 'regular))
-
-;;; Use this to set cursor color if desired
-;(setq default-frame-alist '((cursor-color . "#ffffff")))
 
 
 ;;;; magit (git integration)
@@ -177,11 +160,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-startup-indented t)
+ '(ansi-color-names-vector
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(custom-enabled-themes (quote (wombatz)))
  '(custom-safe-themes
    (quote
-    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
- '(inhibit-startup-screen t))
+    ("2bfe2084cf94c9c4c1e9e3f9a2d43b0096dbf0373bbde7a7ae95996e87d44b08" "6f1b7c39c2b868da0d58ebb4a6ac278654a7c34b9ba22c9ca5a53e7396268729" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+ '(inhibit-startup-screen t)
+ '(org-startup-indented t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
