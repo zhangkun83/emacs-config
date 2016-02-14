@@ -21,7 +21,7 @@
 (if (eq system-type 'gnu/linux)
     ; For linux
     (set-face-attribute 'default nil
-			:family "Terminus" :height 130 :weight 'regular)
+			:family "Liberation Mono" :height 130 :weight 'regular)
     ; For Mac OS X
     (set-face-attribute 'default nil
 			:family "Roboto Mono" :height 130 :weight 'regular))
@@ -162,7 +162,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (wombatz)))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
    (quote
     ("2bfe2084cf94c9c4c1e9e3f9a2d43b0096dbf0373bbde7a7ae95996e87d44b08" "6f1b7c39c2b868da0d58ebb4a6ac278654a7c34b9ba22c9ca5a53e7396268729" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
