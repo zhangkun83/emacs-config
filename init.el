@@ -24,7 +24,7 @@
 			:family "Terminus" :height 130 :weight 'regular)
     ; For Mac OS X
     (set-face-attribute 'default nil
-			:family "Roboto Mono" :height 130 :weight 'regular))
+			:family "Roboto Mono" :height 130 :weight 'thin))
 
 
 ;;;; magit (git integration)
