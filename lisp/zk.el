@@ -17,4 +17,16 @@
                           (process-lines "bash" "-c" (concat "cat '" zk-project-root "/SRCFILES'; echo -n")))))
   (find-file f))
 
+
+;; TODO: automatically load the symbol under cursor
+;; TODO: find and insert to the proper location
+(defun zk-insert-java-import(class-name)
+  "Insert an import statement for a Java class."
+  (interactive "*sClass name: ")
+  (let ((result
+	 (completing-read "Insert: "
+			  (process-lines "bash" "-c"
+					 (concat "zk-find-java-import '" class-name "' '" zk-project-root "/SRCFILES'")))))
+    (insert result)))
+
 (provide 'zk)
