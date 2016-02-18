@@ -131,7 +131,7 @@
 (add-hook 'java-mode-hook
 	  (lambda()
 	    "Register my own shortcuts for Java mode"
-	    (local-set-key (kbd "C-c j i") 'zk-insert-java-import)))
+	    (local-set-key (kbd "C-c i") 'zk-insert-java-import)))
 
 ; Java stacktrace detection in compilation-mode
 (require 'zk-java-stacktrace)
