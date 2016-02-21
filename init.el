@@ -87,6 +87,10 @@
 (setq column-number-mode t)
 
 
+;; Disable tabs
+(setq-default indent-tabs-mode nil)
+
+
 ;;; Turn on outline and showing matching parentheses for these languages.
 (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
@@ -103,8 +107,7 @@
 	    (set-fill-column 100)
 	    (fci-mode)
 	    (setq c-basic-offset 2
-		  tab-width 2
-		  indent-tabs-mode nil)))
+		  tab-width 2)))
 
 
 ;;; Quickly switch between the startup directory and current file's
