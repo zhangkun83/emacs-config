@@ -25,11 +25,32 @@ White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
 (defun zk-java-import-line< (line1 line2)
   "Decides whether one java import line should appear before the other.
 They must not be equal, and must start with 'import '."
-  (if (string-prefix-p "import static" line1)
-      (if (string-prefix-p "import static " line2)
-	  (string< line1 line2) t)
-    (if (string-prefix-p "import static" line2)
-	nil (string< line1 line2))))
+  (let ((p1 (zk-extract-package-name-from-import line1))
+        (p2 (zk-extract-package-name-from-import line2)))
+    (if (string-prefix-p "import static" line1)
+        (if (string-prefix-p "import static " line2)
+            (zk-java-package-name< p1 p2) t)
+      (if (string-prefix-p "import static" line2)
+          nil (zk-java-package-name< p1 p2)))))
+
+(defun zk-extract-package-name-from-import (line)
+  "Extracts a java package name out of the import line,
+which must start with 'import '. It doesn't remove the trailing semicolon."
+  (replace-regexp-in-string "^import \\(static \\)?" "" line))
+
+(defun zk-java-package-name< (package1 package2)
+  "Decides whether one java package should be sorted before the other.
+JDK packages, i.e., java.* and javax.* are the last. Other packages are
+sorted in alphabetical order."
+  (if (zk-jdk-package-p package1)
+      (if (zk-jdk-package-p package2)
+          (string< package1 package2) nil)
+    (if (zk-jdk-package-p package2)
+        t (string< package1 package2))))
+
+(defun zk-jdk-package-p (package)
+  "Decides whether a package name starts with 'java.' or 'javax.'"
+  (or (string-prefix-p "java." package) (string-prefix-p "javax." package)))
 
 (defun zk-insert-java-import(class-name)
   "Insert an import statement for a Java class."
