@@ -42,7 +42,7 @@ and let user choose one if there are multiple matches"
   (add-to-list
    'compilation-error-regexp-alist-alist
    '(java .
-	  ("^[[:space:]]*at \\(\\(?:[[:lower:]]+\\.\\)+\\)[^(]+(\\([[:alnum:]]+\\.[[:lower:]]+\\):\\([[:digit:]]+\\))"
+	  ("[[:space:]]+at \\(\\(?:[[:lower:]]+\\.\\)+\\)[^(]+(\\([[:alnum:]]+\\.[[:lower:]]+\\):\\([[:digit:]]+\\))"
 	   zk-java-stacktrace-regexp-to-filename 3)))
   (message "Enabled zk's Java stacktrace detection"))
 
