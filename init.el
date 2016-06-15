@@ -108,12 +108,16 @@
 (add-hook 'java-mode-hook 'show-paren-mode)
 (require 'fill-column-indicator)
 (add-hook 'java-mode-hook
-	  (lambda ()
-	    "A few code-style parameters for Java"
-	    (set-fill-column 100)
-	    (fci-mode)
-	    (setq c-basic-offset 2
-		  tab-width 2)))
+          (lambda ()
+            "A few code-style parameters for Java"
+            (set-fill-column 100)
+            (fci-mode)
+            (setq c-basic-offset 2
+                  tab-width 2)
+            ;; For newlines in argument list, replace the default indentation that aligns with
+            ;; the parentheses, with the Google style that use double indentations (++)
+            (c-set-offset 'arglist-cont-nonempty '++)
+            ))
 
 
 ;;; Quickly switch between the startup directory and current file's
