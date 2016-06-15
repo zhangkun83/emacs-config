@@ -119,6 +119,7 @@
             (c-set-offset 'arglist-cont-nonempty '++)
             ;; This was single indentation, should be double.
             (c-set-offset 'statement-cont '++)
+            (c-set-offset 'annotation-var-cont 0)
             ))
 
 
