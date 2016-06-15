@@ -117,6 +117,7 @@
             ;; For newlines in argument list, replace the default indentation that aligns with
             ;; the parentheses, with the Google style that use double indentations (++)
             (c-set-offset 'arglist-cont-nonempty '++)
+            (c-set-offset 'arglist-intro '++)
             ;; This was single indentation, should be double.
             (c-set-offset 'statement-cont '++)
             (c-set-offset 'annotation-var-cont 0)
