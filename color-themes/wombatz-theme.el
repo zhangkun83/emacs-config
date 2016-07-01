@@ -31,19 +31,19 @@ are included. Derived from wombat by Kun Zhang")
 (let ((class '((class color) (min-colors 89))))
   (custom-theme-set-faces
    'wombatz
-   `(default ((,class (:background "#242424" :foreground "#f6f3e8"))))
+   `(default ((,class (:background "#454545" :foreground "#e6e3d8"))))
    '(menu ((t (:background "gray30" :foreground "gray70"))))
    ;; Highlighting faces
    `(fringe ((,class (:background "#303030"))))
    `(highlight ((,class (:background "#454545" :foreground "#ffffff"
 			 :underline t))))
-   `(region ((,class (:background "#444444" :foreground "#f6f3e8"))))
+   `(region ((,class (:background "#343434" :foreground "#f6f3e8"))))
    `(secondary-selection ((,class (:background "#333366" :foreground "#f6f3e8"))))
    `(isearch ((,class (:background "#454545" :foreground "#f6f3e8"))))
    `(lazy-highlight ((,class (:background "#384048" :foreground "#f6f3e8"))))
    ;; Mode line faces
-   `(mode-line ((,class (:background "#444444" :foreground "#f6f3e8"))))
-   `(mode-line-inactive ((,class (:background "#444444" :foreground "#857b6f"))))
+   `(mode-line ((,class (:background "gray75" :foreground "black"))))
+   `(mode-line-inactive ((,class (:background "gray40" :foreground "black"))))
    ;; Escape and prompt faces
    `(minibuffer-prompt ((,class (:foreground "#e5786d"))))
    `(escape-glyph ((,class (:foreground "#ddaa6f" :weight bold))))
