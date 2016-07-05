@@ -10,6 +10,11 @@
 
 (zk-set-project-root zk-project-root)
 
+(defun zk-index ()
+  "Regenerate SRCFILES and TAGS."
+  (interactive)
+  (shell-command "zkindex"))
+
 (defun zk-find-src-file-in-project(f)
   "Find a src file indexed in SRCFILES of this project."
   (interactive

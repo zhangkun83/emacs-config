@@ -1,8 +1,22 @@
 #!/bin/bash
 #Generates TAGS and SRCFILES to be used by Emacs zk-* features.
+set -e
 
-rm SRCFILES
-# Always generate absolute paths, use $PWD instead of .
-find "$PWD" -type f | grep "\\/src\\/.*\\.\\(\\(groovy\\)\\|\\(java\\)\\)$" > SRCFILES
-# ctags.io is the best ctags implementation that I know
-ctags -e -L - < SRCFILES
+if [ -z "$ZK_PROJECT_ROOT" ]; then
+    echo "ZK_PROJECT_ROOT is not set"
+    exit 1
+fi
+
+cd "$ZK_PROJECT_ROOT"
+
+if [ -e "zkindex.local" ]; then
+    echo -n "Running zkindex.local ... "
+    ./zkindex.local
+else
+    echo -n "Regenerating SRCFILES and TAGS ... "
+    # Always generate absolute paths, use $PWD instead of .
+    find "$PWD" -type f | grep "\\/src\\/.*\\.\\(\\(groovy\\)\\|\\(java\\)\\)$" > SRCFILES
+    # ctags.io is the best ctags implementation that I know
+    ctags -e -L - < SRCFILES
+fi
+echo "Done"
