@@ -83,6 +83,7 @@ sorted in alphabetical order."
 	      (progn
 		(insert result)
 		(insert "\n")
+                (forward-line -1)  ; Place the cursor on the inserted line
 		(message "Import inserted: %s" result)
 		(setq continue-p nil))
 	    (if (= 1 (forward-line 1))
