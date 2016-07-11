@@ -30,7 +30,7 @@
 			:family "Liberation Mono" :height 115 :weight 'regular)
     ; For Mac OS X
     (set-face-attribute 'default nil
-			:family "Roboto Mono" :height 130 :weight 'regular))
+			:family "Liberation Mono" :height 130 :weight 'regular))
 
 
 ;;;; magit (git integration)
