@@ -1,6 +1,6 @@
-Emacs.pane.menubar.font: -misc-fixed-bold-r-normal-*-18-120-100-100-c-90-iso8859-1
-Emacs.menu*.font: -misc-fixed-bold-r-normal-*-18-120-100-100-c-90-iso8859-1
-Emacs.dialog*.font: -misc-fixed-bold-r-normal-*-18-120-100-100-c-90-iso8859-1
+Emacs.pane.menubar.font: Liberation Sans 12
+Emacs.menu*.font: Liberation Sans 12
+Emacs.dialog*.font: Liberation Sans 12
 Emacs.useXIM: on
 Xft.antialias: 1
 Xft.hinting: 0
