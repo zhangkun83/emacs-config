@@ -2,3 +2,7 @@ Emacs.pane.menubar.font: -misc-fixed-bold-r-normal-*-18-120-100-100-c-90-iso8859
 Emacs.menu*.font: -misc-fixed-bold-r-normal-*-18-120-100-100-c-90-iso8859-1
 Emacs.dialog*.font: -misc-fixed-bold-r-normal-*-18-120-100-100-c-90-iso8859-1
 Emacs.useXIM: on
+Xft.antialias: 1
+Xft.hinting: 0
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
