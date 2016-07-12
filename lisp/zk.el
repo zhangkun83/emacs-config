@@ -15,6 +15,11 @@
   (interactive)
   (shell-command "zkindex"))
 
+(defun zk-grep (pattern)
+  "Grep through the files from SRCFILES."
+  (interactive "sGrep in src files: ")
+  (grep-find (concat "zk-grep " pattern)))
+
 (defun zk-find-src-file-in-project(f)
   "Find a src file indexed in SRCFILES of this project."
   (interactive
