@@ -79,16 +79,15 @@ sorted in alphabetical order."
       (let ((in-import-zone-p nil) (at-insert-point-p nil) current-line (continue-p t))
 	(while continue-p
 	  (setq current-line (zk-trim-string (thing-at-point 'line)))
-	  (if (string= current-line result) ; import already there
-	      (progn
-		(setq continue-p nil)
-		(message "Import already exists"))
-	    (if (string-prefix-p "package " current-line)
-		(setq in-import-zone-p t)
-	      (if (string-prefix-p "import " current-line)
-		  (if (zk-java-import-line< result current-line) (setq at-insert-point-p t))
-		(if (not (string= "" current-line))
-		    (if in-import-zone-p (setq at-insert-point-p t))))))
+	  (cond ((string= current-line result) ; import already there
+                 (progn (setq continue-p nil)
+                        (message "Import already exists")))
+                ((string-prefix-p "package " current-line)
+                 (setq in-import-zone-p t))
+                ((string-prefix-p "import " current-line)
+                 (if (zk-java-import-line< result current-line) (setq at-insert-point-p t)))
+                ((not (string= "" current-line))
+                 (if in-import-zone-p (setq at-insert-point-p t))))
 	  (if at-insert-point-p
 	      (progn
 		(insert result)
