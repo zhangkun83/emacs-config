@@ -3,6 +3,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/groovy-modes"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/helm"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/color-themes"))
 
 ;; Load site-specific bits
@@ -22,6 +23,12 @@
 (load-library "find-lisp")
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (setq org-agenda-files (find-lisp-find-files "~/org" "\.org$"))
+
+
+;; Slime
+(require 'slime)
+(setq inferior-lisp-program "sbcl")
+(setq slime-contribs '(slime-fancy))
 
 ;;; Set font
 (if (eq system-type 'gnu/linux)
