@@ -67,7 +67,13 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
-
+;; Helm by default will try to reuse an existing window to display candidates.
+;; We make it always open a new window instead.
+(setq helm-display-function
+      (lambda (buf)
+        (split-window-vertically)
+        (other-window 1)
+        (switch-to-buffer buf)))
 
 ;; ace-jump-mode for faster cursor movement
 (autoload 'ace-jump-mode "ace-jump-mode" "Emacs quick move minor mode" t)
