@@ -15,7 +15,8 @@ if [ -e "zkindex.local" ]; then
 else
     echo -n "Regenerating SRCFILES and TAGS ... "
     # Always generate absolute paths, use $PWD instead of .
-    find "$PWD" -type f | grep "\\/src\\/.*\\.\\(\\(groovy\\)\\|\\(java\\)\\)$" > SRCFILES
+    find "$PWD" -type f | grep '\/src\/.*\.\(\(groovy\)\|\(java\)\|\(proto\)\)$' > SRCFILES
+    find "$PWD" -type f | grep '\.gradle$' >> SRCFILES
     # ctags.io is the best ctags implementation that I know
     ctags -e -L - < SRCFILES
 fi
