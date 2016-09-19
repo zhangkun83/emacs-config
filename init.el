@@ -200,6 +200,7 @@
  '(custom-safe-themes
    (quote
     ("b6c88a4c9c7a8ace5c1d1c7fc61b9a76142a079ba398e61c8a59161427538c50" "684117b150429c5082829f7fdf1eaa003969f74cfc835d6807fda10d642e7049" "791364f64b4ab3526f8b885e0945d1208637ea4bd13ca269a9c52750fb2d9d1e" "6d77a9905ec4344df3646e0550cb28720bf11bc808f462b3c206fcb12d07cfd6" "2bfe2084cf94c9c4c1e9e3f9a2d43b0096dbf0373bbde7a7ae95996e87d44b08" "6f1b7c39c2b868da0d58ebb4a6ac278654a7c34b9ba22c9ca5a53e7396268729" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+ '(dabbrev-case-replace nil)
  '(font-use-system-font t)
  '(inhibit-startup-screen t)
  '(org-startup-indented t))
