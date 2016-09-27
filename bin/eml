@@ -3,7 +3,7 @@
 serverdir="${TMPDIR:-/tmp}/emacs${UID}"
 for file in ${serverdir}/*; do
   if [[ -S ${file} ]]; then
-    echo "${file##*/}"
+    printf '%s\t%s\n' "${file##*/}" $(fuser "${file}" 2> /dev/null)
   fi
 done
 
