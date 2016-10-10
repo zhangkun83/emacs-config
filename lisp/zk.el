@@ -13,7 +13,8 @@
 (defun zk-index ()
   "Regenerate SRCFILES and TAGS."
   (interactive)
-  (shell-command "zkindex"))
+  (shell-command "zkindex")
+  (shell-command "zk-link-javasrc"))
 
 (defun zk-grep (pattern)
   "Grep through the files from SRCFILES."

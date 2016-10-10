@@ -1,0 +1,27 @@
+#!/bin/bash
+# Link all java source files listed in SRCFILES to a single directory
+# so that they can be easily located from stack traces in compilation mode,
+# where only package names (not full paths) are displayed.
+set -e
+
+if [[ -z "$ZK_PROJECT_ROOT" ]]; then
+    echo "ZK_PROJECT_ROOT is not set"
+    exit 1
+fi
+
+cd "$ZK_PROJECT_ROOT"
+
+if [[ -e SRCFILES_JAVA_LINKS ]]; then
+    rm -r SRCFILES_JAVA_LINKS
+fi
+
+echo -n "Linking java files to SRCFILES_JAVA_LINKS ..."
+grep '\.java$' SRCFILES | while read file; do
+    dest=$(grep '^package .*;' "$file" | sed -e 's/^package //g' -e 's/;$//g' -e 's/\./\//g')
+    dest="SRCFILES_JAVA_LINKS/$dest"
+    if [[ -n "$dest" ]]; then
+        mkdir -p "$dest"
+        ln -sf "$file" "$dest"
+    fi
+done
+echo Done
