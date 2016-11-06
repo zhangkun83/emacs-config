@@ -11,17 +11,30 @@ fi
 
 cd "$ZK_PROJECT_ROOT"
 
-if [[ -e SRCFILES_JAVA_LINKS ]]; then
-    rm -r SRCFILES_JAVA_LINKS
+last_update_timestamp=0
+
+TIMESTAMP_FILE='SRCFILES_JAVA_LINKS/.timestamp'
+if [[ -e "$TIMESTAMP_FILE" ]]; then
+    last_update_timestamp=$(stat -f '%m' "$TIMESTAMP_FILE")
+else
+    mkdir -p SRCFILES_JAVA_LINKS
 fi
+
+touch -a -m "$TIMESTAMP_FILE"
 
 echo -n "Linking java files to SRCFILES_JAVA_LINKS ..."
 grep '\.java$' SRCFILES | while read file; do
-    dest=$(grep '^package .*;' "$file" | sed -e 's/^package //g' -e 's/;$//g' -e 's/\./\//g')
-    dest="SRCFILES_JAVA_LINKS/$dest"
-    if [[ -n "$dest" ]]; then
-        mkdir -p "$dest"
-        ln -sf "$file" "$dest"
+    file_timestamp=$(stat -f '%m' "$file")
+    if [[ "$file_timestamp" -gt "$last_update_timestamp" ]]; then
+        dest=$(grep '^package .*;' "$file" | sed -e 's/^package //g' -e 's/;$//g' -e 's/\./\//g')
+        dest="SRCFILES_JAVA_LINKS/$dest"
+        if [[ -n "$dest" ]]; then
+            mkdir -p "$dest"
+            if [[ -n "$ZK_DEBUG" ]]; then
+                echo ln -sf "$file" "$dest"
+            fi
+            ln -sf "$file" "$dest"
+        fi
     fi
 done
 echo Done
