@@ -1,6 +1,6 @@
 This is my Emacs configuration.
 
-I am using it with Emacs 24.5
+I am using it with Emacs 25.1
 
 Installation
 ============
