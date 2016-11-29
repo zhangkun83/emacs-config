@@ -24,7 +24,7 @@
 (defun zk-find-src-file-in-project(f)
   "Find a src file indexed in SRCFILES of this project."
   (interactive
-   (list (completing-read "Find a src file: "
+   (list (ido-completing-read "Find a src file: "
                           (process-lines "bash" "-c" (concat "cat '" zk-project-root "/SRCFILES'; echo -n")))))
   (find-file f))
 
@@ -70,7 +70,7 @@ sorted in alphabetical order."
 		  (read-string (format "Insert import for (%s): " default-input)
 			     nil nil default-input))))
   (let ((result
-	 (completing-read "Insert import: "
+	 (ido-completing-read "Insert import: "
 			  (process-lines "bash" "-c"
 					 (concat "zk-find-java-import '" class-name "' '" zk-project-root "/SRCFILES'")))))
     (progn
