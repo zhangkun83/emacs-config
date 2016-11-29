@@ -65,6 +65,7 @@
 (helm-mode 1)
 (global-set-key (kbd "M-x") 'undefined)
 (global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 ;; Helm by default will try to reuse an existing window to display candidates.
