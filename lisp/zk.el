@@ -21,12 +21,29 @@
   (interactive "sGrep in src files: ")
   (grep-find (concat "zk-grep " pattern)))
 
+(require 'dash)
 (defun zk-find-src-file-in-project(f)
   "Find a src file indexed in SRCFILES of this project."
   (interactive
    (list (ido-completing-read "Find a src file: "
-                          (process-lines "bash" "-c" (concat "cat '" zk-project-root "/SRCFILES'; echo -n")))))
-  (find-file f))
+                              (-map 'zk-project-get-relative-path
+                               (process-lines "bash" "-c" (concat "cat '" zk-project-root "/SRCFILES'; echo -n"))))))
+  (find-file (zk-project-restore-absolute-path f)))
+
+(defun zk-project-get-relative-path(absolute-path)
+  "If the absolute path starts with zk-project-root, remove it and make it a relative path"
+  (if (string-prefix-p zk-project-root absolute-path)
+      (let ((trimmed (substring absolute-path (length zk-project-root))))
+        (if (string-prefix-p "/" trimmed)
+            (substring trimmed 1)
+          trimmed))
+    absolute-path))
+
+(defun zk-project-restore-absolute-path(relative-path)
+  "If the path is a relative path, add zk-project-root as its prefix"
+  (if (string-prefix-p "/" relative-path)
+      relative-path
+    (concat zk-project-root "/" relative-path)))
 
 (defun zk-trim-string (string)
   "Remove white spaces in beginning and ending of STRING.
