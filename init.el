@@ -161,6 +161,7 @@
 	  (lambda()
 	    "Register my own shortcuts for Java mode"
 	    (local-set-key (kbd "C-c i") 'zk-insert-java-import)))
+(global-set-key (kbd "C-x M-f") 'zk-find-src-file-in-project)
 
 ; Java stacktrace detection in compilation-mode
 (require 'zk-java-stacktrace)
