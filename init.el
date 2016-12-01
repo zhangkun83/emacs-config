@@ -188,6 +188,11 @@
 ;;; Allow shell buffers' contents to be saved
 (require 'zk-desktop-save-shell)
 
+(add-hook 'shell-mode-hook
+          (lambda()
+            "Make dots part of the word so full paths can be expanded by M+/"
+            (make-local-variable 'dabbrev-abbrev-char-regexp)
+            (setq dabbrev-abbrev-char-regexp "\\sw\\|\\s_\\|\\.")))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
