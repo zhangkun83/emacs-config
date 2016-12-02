@@ -133,6 +133,8 @@
             ;; This was single indentation, should be double.
             (c-set-offset 'statement-cont '++)
             (c-set-offset 'annotation-var-cont 0)
+            ;; Treat camelCase as multiple words instead of one
+            (subword-mode)
             ))
 
 
