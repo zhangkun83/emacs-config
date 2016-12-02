@@ -236,3 +236,4 @@
       	(setq frame-title-format '("%b - emacs"))
 	(warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server."))))
 (put 'narrow-to-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
