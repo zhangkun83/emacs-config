@@ -47,9 +47,19 @@
 ;(load-file (expand-file-name "~/.emacs.d/lisp/enable-evil-mode.el"))
 
 ;;;; etags-select (better ctags search)
+
 (load "etags-select.el")
+(defun zk-load-tags-if-not-loaded ()
+  (interactive)
+  (unless (get-buffer "TAGS")
+    (visit-tags-table zk-project-root)))
+
 (global-set-key "\M-?" 'etags-select-find-tag-at-point)
 (global-set-key "\M-." 'etags-select-find-tag)
+
+;; From some point etags-select stopped loading TAGS.
+;; Work around it.
+(advice-add 'etags-select-find-tag :before #'zk-load-tags-if-not-loaded)
 
 ;;; Always do case-sensitive search for tags
 (setq-default tags-case-fold-search nil)
@@ -211,7 +221,8 @@
  '(font-use-system-font t)
  '(ido-enable-flex-matching t)
  '(inhibit-startup-screen t)
- '(org-startup-indented t))
+ '(org-startup-indented t)
+ '(tags-revert-without-query t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
