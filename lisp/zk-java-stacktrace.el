@@ -6,7 +6,7 @@
                  (match-string 2))))
     (concat zk-project-root "/SRCFILES_JAVA_LINKS/" relative-path)))
 
-(defun zk-java-stacektrace-enable ()
+(defun zk-java-stacktrace-detection-enable ()
   "Enable zk's Java stack trace detection for compilation mode.
  This may override existing such functionality from other sources."
   (interactive)
