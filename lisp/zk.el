@@ -83,7 +83,7 @@ sorted in alphabetical order."
 (defun zk-insert-java-import(class-name)
   "Insert an import statement for a Java class."
   (interactive (list
-		(let ((default-input (thing-at-point 'word)))
+		(let ((default-input (thing-at-point 'sexp)))
 		  (read-string (format "Insert import for (%s): " default-input)
 			     nil nil default-input))))
   (let ((result
