@@ -3,6 +3,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/groovy-modes"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/color-themes"))
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/color-themes"))
 
 ;; Load site-specific bits
@@ -213,13 +214,15 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (flatui)))
+ '(custom-enabled-themes (quote (tomorrow-day)))
  '(custom-safe-themes
    (quote
-    ("be73fbde027b9df15a98a044bcfff4d46906b653cb6eef0d98ebccb7f8425dc9" "109c37722f5b922ab2c023d364bbe3bd1e2a49e6c3267ff7bca2ccdddbf9f9c2" "b6c88a4c9c7a8ace5c1d1c7fc61b9a76142a079ba398e61c8a59161427538c50" "684117b150429c5082829f7fdf1eaa003969f74cfc835d6807fda10d642e7049" "791364f64b4ab3526f8b885e0945d1208637ea4bd13ca269a9c52750fb2d9d1e" "6d77a9905ec4344df3646e0550cb28720bf11bc808f462b3c206fcb12d07cfd6" "2bfe2084cf94c9c4c1e9e3f9a2d43b0096dbf0373bbde7a7ae95996e87d44b08" "6f1b7c39c2b868da0d58ebb4a6ac278654a7c34b9ba22c9ca5a53e7396268729" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+    ("7f1263c969f04a8e58f9441f4ba4d7fb1302243355cb9faecb55aec878a06ee9" "be73fbde027b9df15a98a044bcfff4d46906b653cb6eef0d98ebccb7f8425dc9" "109c37722f5b922ab2c023d364bbe3bd1e2a49e6c3267ff7bca2ccdddbf9f9c2" "b6c88a4c9c7a8ace5c1d1c7fc61b9a76142a079ba398e61c8a59161427538c50" "684117b150429c5082829f7fdf1eaa003969f74cfc835d6807fda10d642e7049" "791364f64b4ab3526f8b885e0945d1208637ea4bd13ca269a9c52750fb2d9d1e" "6d77a9905ec4344df3646e0550cb28720bf11bc808f462b3c206fcb12d07cfd6" "2bfe2084cf94c9c4c1e9e3f9a2d43b0096dbf0373bbde7a7ae95996e87d44b08" "6f1b7c39c2b868da0d58ebb4a6ac278654a7c34b9ba22c9ca5a53e7396268729" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(dabbrev-case-replace nil)
  '(fci-rule-color "#c7c7c7")
  '(font-use-system-font t)
+ '(hl-paren-background-colors (quote ("#2492db" "#95a5a6" nil)))
+ '(hl-paren-colors (quote ("#ecf0f1" "#ecf0f1" "#c0392b")))
  '(ido-enable-flex-matching t)
  '(inhibit-startup-screen t)
  '(nrepl-message-colors
@@ -227,6 +230,10 @@
     ("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c")))
  '(org-startup-indented t)
  '(pdf-view-midnight-colors (quote ("#232333" . "#c7c7c7")))
+ '(sml/active-background-color "#34495e")
+ '(sml/active-foreground-color "#ecf0f1")
+ '(sml/inactive-background-color "#dfe4ea")
+ '(sml/inactive-foreground-color "#34495e")
  '(tags-revert-without-query t)
  '(vc-annotate-background "#d4d4d4")
  '(vc-annotate-color-map
