@@ -80,10 +80,18 @@ sorted in alphabetical order."
   "Decides whether a package name starts with 'java.' or 'javax.'"
   (or (string-prefix-p "java." package) (string-prefix-p "javax." package)))
 
+(defun zk-java-identifier-at-point ()
+;; sexp includes other non-identifier characters like @ in @Test
+;; They must be filtered.
+  (let ((id (thing-at-point 'sexp)))
+    (if (string-match "[A-Za-z0-9$_]+" id)
+        (match-string 0 id)
+      id)))
+
 (defun zk-insert-java-import(class-name)
   "Insert an import statement for a Java class."
   (interactive (list
-		(let ((default-input (thing-at-point 'sexp)))
+		(let ((default-input (zk-java-identifier-at-point)))
 		  (read-string (format "Insert import for (%s): " default-input)
 			     nil nil default-input))))
   (let ((result
