@@ -124,4 +124,50 @@ sorted in alphabetical order."
 	    (if (= 1 (forward-line 1))
 		(setq continue-p nil))))))))
 
+(defun zk-java-at-end-of-thing-p ()
+  "Define the end of a java thing, which is a statement ending with ';',
+or code block or class/function definitions that end with '}'"
+  (or
+   (eq ?} (char-before))
+   (looking-at-p ";")
+   (>= (point) (- (buffer-size) 1) )))
+
+(defun zk-java-next-thing ()
+  "Move to the next statement, code block or class/function definition"
+  (interactive)
+  ;; Keep jumping sexp's until it sees a '}' or ';'
+  (while (progn
+           (forward-sexp)
+           (not (zk-java-at-end-of-thing-p))
+        ))
+  ;; If moving to a new line won't accidentally enter a thing, do it.
+  (if (not (looking-at-p ".*{.*$"))
+      (move-beginning-of-line 2)))
+
+(defun zk-java-prev-thing()
+  "Move to the previous statement, code block or class/function definition"
+  (interactive)
+  (while (progn
+           ;; Moving backward twice and forwarding once makes up always
+           ;; stop at the same locations that zk-java-next-thing would
+           ;; stop at, which allows us to use the same method to identify
+           ;; the end of thing.
+           (backward-sexp)
+           (not (or (eq 1 (point))
+                    (progn
+                      (backward-sexp)
+                      (or (eq 1 (point))
+                          (progn
+                            (forward-sexp)
+                            (zk-java-at-end-of-thing-p)
+                            )
+                          )
+                      )
+                    ))
+           ))
+
+  ;; If moving to a new line won't accidentally enter a thing, do it.
+  (if (not (looking-at-p ".*{.*$"))
+      (move-beginning-of-line 2)))
+
 (provide 'zk)
