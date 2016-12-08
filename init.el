@@ -174,6 +174,7 @@
 	  (lambda()
 	    "Register my own shortcuts for Java mode"
 	    (local-set-key (kbd "C-c i") 'zk-insert-java-import)
+            (local-set-key (kbd "C-M-y") 'zk-java-enter-braces-block)
             (local-set-key (kbd "M-n") 'zk-java-next-thing)
             (local-set-key (kbd "M-p") 'zk-java-prev-thing)))
 (global-set-key (kbd "C-x M-f") 'zk-find-src-file-in-project)

@@ -183,4 +183,33 @@ or code block or class/function definitions that end with '}'"
         )))
   (zk-java-align-to-beginning-of-thing))
 
+(defun zk-java-enter-braces-block ()
+  "Enter the next curly braces block"
+  (interactive)
+  (let ((continue-loop-p t)
+        (last-point -1)
+        (original-point (point)))
+    (while continue-loop-p
+      ;; If we have just walked past "}", we will always stop right
+      ;; after it.  This is much easier than checking whether a "{" is
+      ;; ahead.
+      (if (eq ?} (char-before))
+          (progn
+            (backward-sexp)
+            (down-list)
+            ;; If the rest of the line is empty or only has line
+            ;; comments, move to the next line.
+            (if (looking-at-p "[\s\t]*\\(//.*\\)?\n")
+                (move-beginning-of-line 2))
+            (setq continue-loop-p nil))
+        (progn
+          (ignore-errors
+            (forward-sexp))
+          (if (eq (point) last-point)
+              ;; Failed
+              (progn
+                (setq continue-loop-p nil)
+                (goto-char original-point))
+            (setq last-point (point))))))))
+
 (provide 'zk)
