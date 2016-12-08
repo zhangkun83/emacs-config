@@ -129,45 +129,62 @@ sorted in alphabetical order."
 or code block or class/function definitions that end with '}'"
   (or
    (eq ?} (char-before))
-   (looking-at-p ";")
-   (>= (point) (- (buffer-size) 1) )))
+   (looking-at-p ";")))
+
+(defun zk-goto-next-non-empty-line ()
+  (let ((continue-loop-p t) (last-point -1))
+    (while continue-loop-p
+      (progn
+        (if (string-match-p "[^\s\t\n]+" (thing-at-point 'line t))
+            (setq continue-loop-p nil)
+          (next-line))
+        (if (eq (point) last-point)
+            (setq continue-loop-p nil)
+          (setq last-point (point)))
+        )
+      )
+    )
+  )
+
+(defun zk-java-align-to-beginning-of-thing ()
+  ;; If moving to a new line won't accidentally enter a thing, do it.
+  (if (not (looking-at-p ".*{.*$"))
+      (move-beginning-of-line 2))
+  (zk-goto-next-non-empty-line))
 
 (defun zk-java-next-thing ()
   "Move to the next statement, code block or class/function definition"
   (interactive)
   ;; Keep jumping sexp's until it sees a '}' or ';'
-  (while (progn
-           (forward-sexp)
-           (not (zk-java-at-end-of-thing-p))
-        ))
-  ;; If moving to a new line won't accidentally enter a thing, do it.
-  (if (not (looking-at-p ".*{.*$"))
-      (move-beginning-of-line 2)))
+  (let ((continue-loop-p t) (last-point -1))
+    (while continue-loop-p
+      (progn
+        (forward-sexp)
+        (if (or (eq (point) last-point)
+                (zk-java-at-end-of-thing-p))
+            (setq continue-loop-p nil))
+        (setq last-point (point))
+        )))
+  (zk-java-align-to-beginning-of-thing))
 
 (defun zk-java-prev-thing()
   "Move to the previous statement, code block or class/function definition"
   (interactive)
-  (while (progn
-           ;; Moving backward twice and forwarding once makes up always
-           ;; stop at the same locations that zk-java-next-thing would
-           ;; stop at, which allows us to use the same method to identify
-           ;; the end of thing.
-           (backward-sexp)
-           (not (or (eq 1 (point))
-                    (progn
-                      (backward-sexp)
-                      (or (eq 1 (point))
-                          (progn
-                            (forward-sexp)
-                            (zk-java-at-end-of-thing-p)
-                            )
-                          )
-                      )
-                    ))
-           ))
-
-  ;; If moving to a new line won't accidentally enter a thing, do it.
-  (if (not (looking-at-p ".*{.*$"))
-      (move-beginning-of-line 2)))
+  (let ((continue-loop-p t) (last-point -1))
+    (while continue-loop-p
+      (progn
+        ;; Moving backward twice and forwarding once makes up always
+        ;; stop at the same locations that zk-java-next-thing would
+        ;; stop at, which allows us to use the same method to identify
+        ;; the end of thing.
+        (backward-sexp)
+        (backward-sexp)
+        (forward-sexp)
+        (if (or (eq (point) last-point)
+                (zk-java-at-end-of-thing-p))
+            (setq continue-loop-p nil))
+        (setq last-point (point))
+        )))
+  (zk-java-align-to-beginning-of-thing))
 
 (provide 'zk)
