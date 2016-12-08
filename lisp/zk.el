@@ -155,31 +155,27 @@ or code block or class/function definitions that end with '}'"
 (defun zk-java-next-thing ()
   "Move to the next statement, code block or class/function definition"
   (interactive)
-  ;; Keep jumping sexp's until it sees a '}' or ';'
-  (let ((continue-loop-p t) (last-point -1))
-    (while continue-loop-p
-      (progn
-        (forward-sexp)
-        (if (or (eq (point) last-point)
-                (zk-java-at-end-of-thing-p))
-            (setq continue-loop-p nil))
-        (setq last-point (point))
-        )))
-  (zk-java-align-to-beginning-of-thing))
+  (zk-java-move-to-thing  'forward-sexp))
 
 (defun zk-java-prev-thing()
   "Move to the previous statement, code block or class/function definition"
   (interactive)
+  (zk-java-move-to-thing
+   (lambda ()
+     ;; Moving backward twice and forwarding once makes up always
+     ;; stop at the same locations that zk-java-next-thing would
+     ;; stop at, which allows us to use the same method to identify
+     ;; the end of thing.
+     (backward-sexp)
+     (backward-sexp)
+     (forward-sexp)
+     )))
+
+(defun zk-java-move-to-thing (move-fun)
   (let ((continue-loop-p t) (last-point -1))
     (while continue-loop-p
       (progn
-        ;; Moving backward twice and forwarding once makes up always
-        ;; stop at the same locations that zk-java-next-thing would
-        ;; stop at, which allows us to use the same method to identify
-        ;; the end of thing.
-        (backward-sexp)
-        (backward-sexp)
-        (forward-sexp)
+        (funcall move-fun)
         (if (or (eq (point) last-point)
                 (zk-java-at-end-of-thing-p))
             (setq continue-loop-p nil))
