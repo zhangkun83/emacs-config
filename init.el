@@ -226,7 +226,7 @@
  '(font-use-system-font t)
  '(hl-paren-background-colors (quote ("#2492db" "#95a5a6" nil)))
  '(hl-paren-colors (quote ("#ecf0f1" "#ecf0f1" "#c0392b")))
- '(ido-enable-flex-matching t)
+ '(ido-enable-flex-matching nil)
  '(inhibit-startup-screen t)
  '(nrepl-message-colors
    (quote
