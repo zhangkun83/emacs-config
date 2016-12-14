@@ -144,6 +144,8 @@
             ;; This was single indentation, should be double.
             (c-set-offset 'statement-cont '++)
             (c-set-offset 'annotation-var-cont 0)
+            ;; case: line wasn't indenting. It should be.
+            (c-set-offset 'case-label '+)
             ;; Treat camelCase as multiple words instead of one
             (subword-mode)
             ))
