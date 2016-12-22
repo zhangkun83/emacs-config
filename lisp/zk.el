@@ -155,13 +155,13 @@ or code block or class/function definitions that end with '}'"
 (defun zk-java-next-thing ()
   "Move to the next statement, code block or class/function definition"
   (interactive)
-  (zk-escape-string)
+  (zk-escape-to-braces)
   (zk-java-move-to-thing  'forward-sexp))
 
 (defun zk-java-prev-thing()
   "Move to the previous statement, code block or class/function definition"
   (interactive)
-  (zk-escape-string)
+  (zk-escape-to-braces)
   (zk-java-move-to-thing
    (lambda ()
      ;; Moving backward twice and forwarding once makes up always
@@ -193,22 +193,35 @@ or code block or class/function definitions that end with '}'"
     (if (nth 3 parse-state)
         (backward-up-list nil t t))))
 
+(defun zk-escape-parens (left-parens-list)
+  "Escape the parenthesis listed in left-parens-list"
+  (while (let ((left-paren-pos (nth 1 (syntax-ppss))))
+           (and left-paren-pos
+                (member (char-after left-paren-pos) left-parens-list)
+                (backward-up-list nil t t)
+                t))))
+
+(defun zk-escape-to-braces ()
+  "Jump outward until it's not in a string, () or []."
+  (zk-escape-string)
+  (zk-escape-parens '(?\( ?\[)))
+
 (defun zk-java-beginning-braces-block ()
   "Move to the beginning of current braces block"
   (interactive)
-  (zk-escape-string)
+  (zk-escape-to-braces)
   (zk-java-move-to-thing 'zk-java-prev-thing))
 
 (defun zk-java-end-braces-block ()
   "Move to the end of current braces block"
   (interactive)
-  (zk-escape-string)
+  (zk-escape-to-braces)
   (zk-java-move-to-thing 'zk-java-next-thing))
 
 (defun zk-java-mark-thing ()
   "Mark the current thing"
   (interactive)
-  (zk-escape-string)
+  (zk-escape-to-braces)
   (set-mark (point))
   (zk-java-next-thing)
   (set-mark-command nil)
@@ -217,7 +230,7 @@ or code block or class/function definitions that end with '}'"
 (defun zk-java-enter-braces-block ()
   "Enter the next curly braces block"
   (interactive)
-  (zk-escape-string)
+  (zk-escape-to-braces)
   (let ((continue-loop-p t)
         (last-point -1)
         (original-point (point)))
