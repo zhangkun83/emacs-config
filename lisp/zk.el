@@ -198,8 +198,7 @@ or code block or class/function definitions that end with '}'"
   (while (let ((left-paren-pos (nth 1 (syntax-ppss))))
            (and left-paren-pos
                 (member (char-after left-paren-pos) left-parens-list)
-                (backward-up-list nil t t)
-                t))))
+                (progn (backward-up-list nil t t) t)))))
 
 (defun zk-escape-to-braces ()
   "Jump outward until it's not in a string, () or []."
