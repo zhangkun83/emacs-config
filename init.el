@@ -231,6 +231,7 @@
  '(nrepl-message-colors
    (quote
     ("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c")))
+ '(ns-command-modifier nil)
  '(org-startup-indented t)
  '(pdf-view-midnight-colors (quote ("#232333" . "#c7c7c7")))
  '(sml/active-background-color "#34495e")
