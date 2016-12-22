@@ -183,6 +183,23 @@ or code block or class/function definitions that end with '}'"
         )))
   (zk-java-align-to-beginning-of-thing))
 
+(defun zk-java-beginning-braces-block ()
+  "Move to the beginning of current braces block"
+  (interactive)
+  (zk-java-move-to-thing 'zk-java-prev-thing))
+
+(defun zk-java-end-braces-block ()
+  "Move to the end of current braces block"
+  (interactive)
+  (zk-java-move-to-thing 'zk-java-next-thing))
+
+(defun zk-java-mark-thing ()
+  "Mark the current thing"
+  (interactive)
+  (zk-java-next-thing)
+  (set-mark-command nil)
+  (zk-java-prev-thing))
+
 (defun zk-java-enter-braces-block ()
   "Enter the next curly braces block"
   (interactive)

@@ -169,15 +169,15 @@
 	  (lambda()
 	    "Register my own shortcuts for Java mode"
 	    (local-set-key (kbd "C-c i") 'zk-insert-java-import)
-            (local-set-key (kbd "C-M-j") 'zk-java-enter-braces-block)
+            (local-set-key (kbd "M-;") 'recenter-top-bottom)
+            (local-set-key (kbd "M-h") 'zk-java-mark-thing)
+            (local-set-key (kbd "M-i") 'zk-java-enter-braces-block)
+            (local-set-key (kbd "M-o") 'backward-up-list)
             (local-set-key (kbd "M-n") 'zk-java-next-thing)
-            (local-set-key (kbd "C-M-n") 'zk-java-next-thing)
             (local-set-key (kbd "M-p") 'zk-java-prev-thing)
-            (local-set-key (kbd "C-M-p") 'zk-java-prev-thing)))
+            (local-set-key (kbd "M-a") 'zk-java-beginning-braces-block)
+            (local-set-key (kbd "M-e") 'zk-java-end-braces-block)))
 (global-set-key (kbd "C-x M-f") 'zk-find-src-file-in-project)
-;; Which is easier to press than C-M-u given my current key mapping
-;; which put Meta and Control under left and right thumbs.
-(global-set-key (kbd "C-M-i") 'backward-up-list)
 
 ; Java stacktrace detection in compilation-mode
 (require 'zk-java-stacktrace)
@@ -287,3 +287,4 @@
 	(warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server."))))
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
