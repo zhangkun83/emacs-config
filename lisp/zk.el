@@ -212,4 +212,24 @@ or code block or class/function definitions that end with '}'"
                 (goto-char original-point))
             (setq last-point (point))))))))
 
+
+;; The default isearch stops the point at the end of search-term, which is not
+;; useful at all.  Here we change it to stop at the beginning of search-term,
+;; making isearch a powerful tool to move around.
+(defun zk-isearch-forward-to-beginning ()
+  "Do a forward search and jump to the beginning of the search-term."
+  (interactive)
+  (isearch-forward)
+  (if isearch-other-end
+      (goto-char isearch-other-end)))
+
+(defun zk-isearch-repeat-forward-to-beginning ()
+  "Do a forward repeat search and jump to the beginning of the search-term."
+  (interactive)
+  (isearch-repeat 'forward)
+  (goto-char isearch-other-end))
+
+(global-set-key (kbd "C-s") 'zk-isearch-forward-to-beginning)
+(define-key isearch-mode-map (kbd "C-s") 'zk-isearch-repeat-forward-to-beginning)
+
 (provide 'zk)
