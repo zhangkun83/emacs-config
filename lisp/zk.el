@@ -155,11 +155,13 @@ or code block or class/function definitions that end with '}'"
 (defun zk-java-next-thing ()
   "Move to the next statement, code block or class/function definition"
   (interactive)
+  (zk-escape-string)
   (zk-java-move-to-thing  'forward-sexp))
 
 (defun zk-java-prev-thing()
   "Move to the previous statement, code block or class/function definition"
   (interactive)
+  (zk-escape-string)
   (zk-java-move-to-thing
    (lambda ()
      ;; Moving backward twice and forwarding once makes up always
@@ -183,19 +185,31 @@ or code block or class/function definitions that end with '}'"
         )))
   (zk-java-align-to-beginning-of-thing))
 
+(defun zk-escape-string ()
+  "Escape the current string if the point is currently in one"
+  (let ((parse-state (syntax-ppss)))
+    ;; The 4th element in the parse-state indicate the start of
+    ;; the current string, or nil if not in.
+    (if (nth 3 parse-state)
+        (backward-up-list nil t t))))
+
 (defun zk-java-beginning-braces-block ()
   "Move to the beginning of current braces block"
   (interactive)
+  (zk-escape-string)
   (zk-java-move-to-thing 'zk-java-prev-thing))
 
 (defun zk-java-end-braces-block ()
   "Move to the end of current braces block"
   (interactive)
+  (zk-escape-string)
   (zk-java-move-to-thing 'zk-java-next-thing))
 
 (defun zk-java-mark-thing ()
   "Mark the current thing"
   (interactive)
+  (zk-escape-string)
+  (set-mark (point))
   (zk-java-next-thing)
   (set-mark-command nil)
   (zk-java-prev-thing))
@@ -203,6 +217,7 @@ or code block or class/function definitions that end with '}'"
 (defun zk-java-enter-braces-block ()
   "Enter the next curly braces block"
   (interactive)
+  (zk-escape-string)
   (let ((continue-loop-p t)
         (last-point -1)
         (original-point (point)))

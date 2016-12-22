@@ -175,6 +175,7 @@
             (local-set-key (kbd "M-o") 'backward-up-list)
             (local-set-key (kbd "M-n") 'zk-java-next-thing)
             (local-set-key (kbd "M-p") 'zk-java-prev-thing)
+            ;; TODO(zhangkun83): use syntax table to escape () and []
             (local-set-key (kbd "M-a") 'zk-java-beginning-braces-block)
             (local-set-key (kbd "M-e") 'zk-java-end-braces-block)))
 (global-set-key (kbd "C-x M-f") 'zk-find-src-file-in-project)
