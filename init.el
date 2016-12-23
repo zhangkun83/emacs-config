@@ -229,6 +229,8 @@
  '(ido-enable-flex-matching nil)
  '(inhibit-startup-screen t)
  '(iy-go-to-char-continue-when-repeating nil)
+ '(iy-go-to-char-key-forward ?\C-F)
+ '(iy-go-to-char-key-backward ?\C-B)
  '(nrepl-message-colors
    (quote
     ("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c")))
