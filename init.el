@@ -228,6 +228,7 @@
  '(hl-paren-colors (quote ("#ecf0f1" "#ecf0f1" "#c0392b")))
  '(ido-enable-flex-matching nil)
  '(inhibit-startup-screen t)
+ '(iy-go-to-char-continue-when-repeating nil)
  '(nrepl-message-colors
    (quote
     ("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c")))
@@ -289,3 +290,6 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+(require 'iy-go-to-char)
+(global-set-key (kbd "C-f") 'iy-go-up-to-char)
+(global-set-key (kbd "C-b") 'iy-go-to-char-backward)
