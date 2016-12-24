@@ -59,19 +59,16 @@
 ;;
 ;; You also can bind go-to methods and up-to methods to different keys.
 ;;
-;; Except repeating the char key, followings keys are defined before
+;; Followings keys are defined before
 ;; quitting the search (which can be disabled by setting
 ;; `iy-go-to-char-override-local-map' to nil):
 ;;
 ;;    X   -- where X is the char to be searched. Repeating it will search
-;;           forward the char. Can be disabled through
-;;           `iy-go-to-char-continue-when-repeating'
+;;           forward the char.
 ;;
-;;    ;   -- search forward the char, customizable:
-;;           `iy-go-to-char-key-forward', `iy-go-to-char-use-key-forward'
+;;    TAB   -- search forward the char
 ;;
-;;    ,   -- search backward the char, customizable:
-;;           `iy-go-to-char-key-backward', `iy-go-to-char-use-key-backward'
+;;    BACKSPACE  -- search backward the char
 ;;
 ;;    C-g -- quit
 ;;
@@ -141,37 +138,6 @@
 
 ;;; Code:
 
-(defgroup iy-go-to-char nil
-  "go to char like f in vim."
-  :link '(emacs-commentary-link "iy-go-to-char")
-  :prefix "iy-go-to-char-"
-  :group 'matching)
-
-(defcustom iy-go-to-char-key-forward ?\;
-  "Default key used to go to next occurrence of the char."
-  :type 'character
-  :group 'iy-go-to-char)
-(defcustom iy-go-to-char-use-key-forward t
-  "Whether bind `iy-go-to-char-key-forward' to go to next occurrence of the char."
-  :type 'boolean
-  :group 'iy-go-to-char)
-(defcustom iy-go-to-char-key-backward ?\,
-  "Default key used to go to previous occurrence of the char."
-  :type 'character
-  :group 'iy-go-to-char)
-(defcustom iy-go-to-char-use-key-backward t
-  "Whether bind `iy-go-to-char-key-backward' to go to next occurrence of the char."
-  :type 'boolean
-  :group 'iy-go-to-char)
-(defcustom iy-go-to-char-continue-when-repeating t
-  "Whether continue the search by repeating the search char."
-  :type 'boolean
-  :group 'iy-go-to-char)
-(defcustom iy-go-to-char-override-local-map t
-  "Whether use the temporary key bindings following `iy-go-to-char'."
-  :type 'boolean
-  :group 'iy-go-to-char)
-
 (defvar iy-go-to-char-start-pos nil
   "Position where go to char mode is enabled.")
 
@@ -223,20 +189,15 @@ Set to `exclude' so the next matched char is excluded in the region.")
 
 (defun iy-go-to-char--override-local-map (char)
   "Override the local key map for jump char CHAR."
-  (when iy-go-to-char-override-local-map
-   (setq overriding-local-map
+  (setq overriding-local-map
         (let ((map (copy-keymap iy-go-to-char-keymap)))
+          (define-key map (string char) 'iy-go-to-or-up-to-continue)
+          (define-key map (kbd "<tab>") 'iy-go-to-or-up-to-continue)
+          (define-key map (kbd "<backspace>") 'iy-go-to-or-up-to-continue-backward)
+          (define-key map (kbd "<return>") 'iy-go-to-char-done)
+          (define-key map [t] 'iy-go-to-char-do-nothing)
 
-          (when iy-go-to-char-continue-when-repeating
-            (define-key map (string char) 'iy-go-to-or-up-to-continue))
-          (when iy-go-to-char-use-key-forward
-            (define-key map (string iy-go-to-char-key-forward) 'iy-go-to-or-up-to-continue))
-          (when iy-go-to-char-use-key-backward
-            (define-key map (string iy-go-to-char-key-backward) 'iy-go-to-or-up-to-continue-backward))
-
-          (define-key map [t] 'iy-go-to-char-pass-through)
-
-          map))))
+          map)))
 
  
 
@@ -254,25 +215,9 @@ Set to `exclude' so the next matched char is excluded in the region.")
   (setq iy-go-to-char-start-pos nil)
   (setq overriding-local-map nil))
 
-(defun iy-go-to-char-pass-through ()
-  "Finish iy-go-to-char-mode and invoke the corresponding command."
-  (interactive)
-  (iy-go-to-char-done)
-  (let* ((keys (progn
-                 (setq unread-command-events
-                       (append (this-single-command-raw-keys)
-                               unread-command-events))
-                 (read-key-sequence-vector "")))
-         (command (and keys (key-binding keys))))
-    (when (commandp command)
-      (setq this-command command
-            this-original-command command)
-      (iy-go-to-char--set-mc-command `(lambda ()
-                                        (interactive)
-                                        (push-mark iy-go-to-char-start-pos t)
-                                        (setq iy-go-to-char-start-pos nil)
-                                        (call-interactively ',command)))
-      (call-interactively command))))
+(defun iy-go-to-char-do-nothing ()
+  "Do nothing"
+  (interactive))
 
 (defun iy-go-to-char-isearch ()
   "Start isearch using the char."
@@ -326,7 +271,9 @@ Set to `exclude' so the next matched char is excluded in the region.")
           (unless (eq iy-go-to-char-stop-position 'include)
             (forward-char (- dir))))
       (error (goto-char pos)
-             (signal (car err) (cdr err))))))
+             (signal (car err) (cdr err)))))
+  (message "'%s' or TAB: search next; BS: search prev; RET: done" (string iy-go-to-char-last-char))
+  )
 
 (defun iy-go-to-char--internal (n char stop-position)
   "Store jump step N and jump CHAR for `iy-go-to-char--command'.
@@ -351,11 +298,9 @@ If STOP-POSITION is not `include', jump up to char but excluding the char."
 
 Typing key of CHAR will move to the next occurence of CHAR.
 
-Typing `iy-go-to-char-key-forward' will move to the next
-occurence of CHAR.
+Typing TAB will move to the next occurence of CHAR.
 
-Typing `iy-go-to-char-key-backward', will move to the previous
-occurence of CHAR.
+Typing BACKSPACE will move to the previous occurence of CHAR.
 
 Typing \\[iy-go-to-char-quit] will quit and return to the
 original point.
@@ -381,11 +326,9 @@ activated before searching, the start point is set as mark."
 
 Typing key of CHAR will move to the previous occurence of CHAR.
 
-Typing `iy-go-to-char-key-forward' moves to the next occurrence
-of CHAR.
+Typing TAB moves to the next occurrence of CHAR.
 
-Typing `iy-go-to-char-key-backward', moves to the previous
-occurrence of CHAR.
+Typing BACKSPACE moves to the previous occurrence of CHAR.
 
 Typing \\[iy-go-to-char-quit] will quit and return to the
 original point.
@@ -423,9 +366,8 @@ current point."
 Set `STOP-POSITION' to overwrite the last used stop position strategy."
   (interactive "p")
   (when iy-go-to-char-last-char
-    (iy-go-to-char--internal n iy-go-to-char-last-char (or stop-position
-                                                           iy-go-to-char-stop-position
-                                                           'include))))
+    (iy-go-to-char--internal
+     n iy-go-to-char-last-char (iy-go-to-char--get-stop-position stop-position))))
 
 ;;;###autoload
 (defun iy-go-to-or-up-to-continue-backward (n &optional stop-position)
@@ -433,9 +375,14 @@ Set `STOP-POSITION' to overwrite the last used stop position strategy."
 Set `STOP-POSITION' to overwrite the last used stop position strategy."
   (interactive "p")
   (when iy-go-to-char-last-char
-    (iy-go-to-char--internal (- n) iy-go-to-char-last-char (or stop-position
-                                                               iy-go-to-char-stop-position
-                                                               'include))))
+    (iy-go-to-char--internal
+     (- n) iy-go-to-char-last-char (iy-go-to-char--get-stop-position stop-position))))
+
+;;;###autoload
+(defun iy-go-to-char--get-stop-position (stop-position)
+  (or stop-position
+      iy-go-to-char-stop-position
+      'include))
 
 ;;;###autoload
 (defun iy-go-to-char-continue (n)
