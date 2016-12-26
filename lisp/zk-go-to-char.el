@@ -43,12 +43,13 @@
   (setq zk-go-to-char-original-dir dir)
   (setq zk-go-to-char-start-pos (point))
   (setq zk-go-to-char-last-error "")
-  (setq zk-go-to-char-current-char nil))
+  (setq zk-go-to-char-current-char nil)
+  (forward-char dir))
 
 (defun zk-go-to-char--prompt ()
   (while
       (let* ((inhibit-quit t)
-             (event (read-event (format "Go %s to char%s%s"
+             (event (read-event (format "Go %s to char%s%s (RET to finish)"
                                         (if (eq zk-go-to-char-original-dir 1) "forward" "backward")
                                         (if zk-go-to-char-current-char
                                             (format " (%c)" zk-go-to-char-current-char) "")
@@ -85,16 +86,18 @@
               (let* ((keys (read-key-sequence-vector nil))
                      (command (and keys (key-binding keys))))
                 (when (commandp command)
-                  ;; Avoid recursion on itself
                   (cond
+                   ;; Avoid recursion on itself
                    ((eq command 'zk-go-to-char-forward)
                     (progn
                       (zk-go-to-char--init 1)
                       t))
+                   ;; Avoid recursion on itself
                    ((eq command 'zk-go-to-char-backward)
                     (progn
                       (zk-go-to-char--init -1)
                       t))
+                   ;; Other commands
                    (t
                     (progn
                       (setq this-command command
