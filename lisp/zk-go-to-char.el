@@ -44,28 +44,27 @@
 (defun zk-go-to-char--prompt ()
   (while
       (let* ((inhibit-quit t)
-             (event (read-event (format "Jump %s to a char (RET: Done; C-g: Cancel%s):"
+             (event (read-event (format "Go %s to char%s"
                                         (if (eq zk-go-to-char-original-dir 1) "forward" "backward")
                                         (if zk-go-to-char-current-char
-                                            (format "; TAB: next '%c'; Backspace: prev '%c'"
-                                                    zk-go-to-char-current-char zk-go-to-char-current-char)
-                                          "")
+                                            (format " (%c)" zk-go-to-char-current-char) "")
                                         ))))
         (cond
          ((and (characterp event)
-               (string-match-p "[[:graph:]]" (string event)))
+               (or (string-match-p "[[:graph:]]" (string event))
+                   (eq event ?\s)))
           (progn
             (setq zk-go-to-char-current-char event)
             (zk-go-to-char--move zk-go-to-char-original-dir)
             t))
          ((eq event 'return)
           (progn
-            (message "Done!")
+            (message "Done.")
             nil))
          ((eq event ?\^G)
           (progn
             (goto-char zk-go-to-char-start-pos)
-            (message "Jump cancelled. Returned to origin.")
+            (message "Go-to-char cancelled.")
             nil))
          ((eq event 'tab)
           (progn
