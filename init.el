@@ -289,6 +289,6 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-(require 'iy-go-to-char)
-(global-set-key (kbd "C-f") 'iy-go-up-to-char)
-(global-set-key (kbd "C-b") 'iy-go-to-char-backward)
+(require 'zk-go-to-char)
+(global-set-key (kbd "C-f") 'zk-go-to-char-forward)
+(global-set-key (kbd "C-b") 'zk-go-to-char-backward)
