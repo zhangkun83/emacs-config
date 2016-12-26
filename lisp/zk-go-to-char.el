@@ -24,6 +24,9 @@
 (defvar zk-go-to-char-current-char nil
   "Last char used for jump.")
 
+(defvar zk-go-to-char-last-error ""
+  "Last error message from go-to-char.")
+
 (defun zk-go-to-char-forward ()
   "Jump forward to chars that are typed subsequently."
   (interactive)
@@ -39,15 +42,17 @@
 (defun zk-go-to-char--init (dir)
   (setq zk-go-to-char-original-dir dir)
   (setq zk-go-to-char-start-pos (point))
+  (setq zk-go-to-char-last-error "")
   (setq zk-go-to-char-current-char nil))
 
 (defun zk-go-to-char--prompt ()
   (while
       (let* ((inhibit-quit t)
-             (event (read-event (format "Go %s to char%s"
+             (event (read-event (format "Go %s to char%s%s"
                                         (if (eq zk-go-to-char-original-dir 1) "forward" "backward")
                                         (if zk-go-to-char-current-char
                                             (format " (%c)" zk-go-to-char-current-char) "")
+                                        zk-go-to-char-last-error
                                         ))))
         (cond
          ((and (characterp event)
@@ -84,11 +89,11 @@
                   (cond
                    ((eq command 'zk-go-to-char-forward)
                     (progn
-                      (setq zk-go-to-char-original-dir 1)
+                      (zk-go-to-char--init 1)
                       t))
                    ((eq command 'zk-go-to-char-backward)
                     (progn
-                      (setq zk-go-to-char-original-dir -1)
+                      (zk-go-to-char--init -1)
                       t))
                    (t
                     (progn
@@ -98,9 +103,17 @@
                       nil)))))))))))
 
 (defun zk-go-to-char--move (dir)
-  (when zk-go-to-char-current-char
-    (if (> dir 0) (forward-char))
-    (search-forward (char-to-string zk-go-to-char-current-char) nil nil dir)
-    (if (> dir 0) (backward-char))))
+  (if zk-go-to-char-current-char
+      (progn
+        (if (> dir 0) (forward-char))
+        (if (search-forward (char-to-string zk-go-to-char-current-char) nil t dir)
+            (setq zk-go-to-char-last-error "")
+          (setq zk-go-to-char-last-error
+                (format " (No more '%c' %s)"
+                        zk-go-to-char-current-char
+                        (if (eq zk-go-to-char-original-dir 1)
+                            "forward" "backward"))))
+        (if (> dir 0) (backward-char)))
+    (setq zk-go-to-char-last-error " (Type a char first)")))
 
 (provide 'zk-go-to-char)
