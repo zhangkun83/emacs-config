@@ -47,7 +47,8 @@
   (forward-char dir))
 
 (defun zk-go-to-char--prompt ()
-  (while
+  (let ((cursor-type 'hollow))
+    (while
       (let* ((inhibit-quit t)
              (event (read-event (format "Go %s to char%s%s (RET to finish)"
                                         (if (eq zk-go-to-char-original-dir 1) "forward" "backward")
@@ -103,7 +104,7 @@
                       (setq this-command command
                             this-original-command command)
                       (call-interactively command)
-                      nil)))))))))))
+                      nil))))))))))))
 
 (defun zk-go-to-char--move (dir)
   (if zk-go-to-char-current-char
