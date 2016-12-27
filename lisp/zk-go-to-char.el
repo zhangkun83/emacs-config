@@ -31,13 +31,15 @@
   "Jump forward to chars that are typed subsequently."
   (interactive)
   (zk-go-to-char--init 1)
-  (zk-go-to-char--prompt))
+  (unless (minibufferp)
+    (zk-go-to-char--prompt)))
 
 (defun zk-go-to-char-backward ()
   "Jump backward to chars that are typed subsequently."
   (interactive)
   (zk-go-to-char--init -1)
-  (zk-go-to-char--prompt))
+  (unless (minibufferp)
+    (zk-go-to-char--prompt)))
 
 (defun zk-go-to-char--init (dir)
   (setq zk-go-to-char-original-dir dir)
