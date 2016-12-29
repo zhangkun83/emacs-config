@@ -66,7 +66,7 @@
             (setq zk-go-to-char-current-char event)
             (zk-go-to-char--move zk-go-to-char-original-dir)
             t))
-         ((eq event 'return)
+         ((or (eq event 'return) (eq event ?\r))
           (progn
             (message "Done.")
             nil))
@@ -75,11 +75,11 @@
             (goto-char zk-go-to-char-start-pos)
             (message "Go-to-char cancelled.")
             nil))
-         ((eq event 'tab)
+         ((or (eq event 'tab) (eq event ?\t))
           (progn
             (zk-go-to-char--move zk-go-to-char-original-dir)
             t))
-         ((eq event 'backspace)
+         ((or (eq event 'backspace) (eq event ?\d))
           (progn
             (zk-go-to-char--move (- zk-go-to-char-original-dir))
             t))
