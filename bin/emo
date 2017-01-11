@@ -1,13 +1,18 @@
 #!/bin/bash
-# Opens a file in an emacsclient.
+# Opens a file in an emacsclient to the server "_emacs_".
 # If the server doesn't exist, starts the server first.
 
-if [[ "$#" -lt 1 ]]; then
-    echo "Usage: emo <server_name> [args...]"
-    exit 1
-fi
-server_name="$1"
-if [[ -z "$(eml | fgrep "${server_name}")" ]]; then
+set -e
+
+server_name="_emacs_"
+serverdir="${TMPDIR:-/tmp}/emacs${UID}"
+
+if [[ ! -e "${serverdir}/${server_name}" ]]; then
+    # Avoid starting emac in a top-level directory, e.g., $HOME.
+    # Otherwise zk-index would take forever.
+    cd ~/.emacs.d/
     ems "${server_name}" --daemon
+    cd -
 fi
-emc "$@"
+
+emc "${server_name}" "$@"

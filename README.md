@@ -56,14 +56,14 @@ export PATH=$HOME/.emacs.d/bin:$PATH
 ```
 
 Put those in `~/.bashrc` so that the system-wide default editor will
-be `emo daemon`, which starts an Emacs server named `daemon` and opens
+be `emo`, which starts an Emacs server named `_daemon_` and opens
 the file in that server.  It also assign an alias `e` to the editor.
 In `init.el`, `$EDITOR` is set to `open-in-emacs-server` so that `e`
 in shell mode would open a file in current Emacs session.
 
 ```bash
 if [ -z "$EDITOR" ]; then
-    export EDITOR="emo daemon"
+    export EDITOR="emo"
 fi
 alias e="$EDITOR"
 ```
