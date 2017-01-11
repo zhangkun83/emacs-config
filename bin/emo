@@ -1,0 +1,13 @@
+#!/bin/bash
+# Opens a file in an emacsclient.
+# If the server doesn't exist, starts the server first.
+
+if [[ "$#" -lt 1 ]]; then
+    echo "Usage: emo <server_name> [args...]"
+    exit 1
+fi
+server_name="$1"
+if [[ -z "$(eml | fgrep "${server_name}")" ]]; then
+    ems "${server_name}" --daemon
+fi
+emc "$@"

@@ -44,3 +44,26 @@ Create symbolic links under any directory in your search path, for the
 scripts under the `bin` directory. They provide better support for
 emacs server/client, and are also needed by various custom
 functionalities.
+
+Environments
+------------
+
+Put those in `~/.profile` so that the supporting scripts are in
+`$PATH` after you logged in:
+
+```bash
+export PATH=$HOME/.emacs.d/bin:$PATH
+```
+
+Put those in `~/.bashrc` so that the system-wide default editor will
+be `emo daemon`, which starts an Emacs server named `daemon` and opens
+the file in that server.  It also assign an alias `e` to the editor.
+In `init.el`, `$EDITOR` is set to `open-in-emacs-server` so that `e`
+in shell mode would open a file in current Emacs session.
+
+```bash
+if [ -z "$EDITOR" ]; then
+    export EDITOR="emo daemon"
+fi
+alias e="$EDITOR"
+```
