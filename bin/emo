@@ -5,7 +5,7 @@
 set -e
 
 server_name="_emacs_"
-serverdir="${TMPDIR:-/tmp}/emacs${UID}"
+serverdir="$HOME/.emacs.d/sockets"
 
 if [[ ! -e "${serverdir}/${server_name}" ]]; then
     # Avoid starting emac in a top-level directory, e.g., $HOME.

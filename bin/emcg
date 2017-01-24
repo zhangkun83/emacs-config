@@ -6,4 +6,4 @@ if [ "$#" -lt 1 ]; then
 fi
 server_name="$1"
 shift
-emacsclient -c -s "$server_name" "$@"
+emacsclient -c -s "$HOME/.emacs.d/sockets/$server_name" "$@"

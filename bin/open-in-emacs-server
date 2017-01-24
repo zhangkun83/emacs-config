@@ -8,6 +8,6 @@ fi
 SERVER_NAME="$1"
 FILE="$2"
 
-emacsclient -s "$SERVER_NAME" -e "(find-file \"$FILE\")"
+emacsclient -s "$HOME/.emacs.d/sockets/$SERVER_NAME" -e "(find-file \"$FILE\")"
 
 read -p "Press enter when you have done editing ..."
