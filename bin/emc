@@ -6,4 +6,12 @@ if [ "$#" -lt 1 ]; then
 fi
 server_name="$1"
 shift
-emacsclient -nw -s "$HOME/.emacs.d/sockets/$server_name" "$@"
+base_cmd="emacsclient"
+if [[ -t 1 ]]; then
+    # If run in a terminal, start in text mode
+    base_cmd="${base_cmd} -nw"
+else
+    # Otherwise, open a new X11 window
+    base_cmd="${base_cmd} -c"
+fi
+$base_cmd -s "$HOME/.emacs.d/sockets/$server_name" "$@"
