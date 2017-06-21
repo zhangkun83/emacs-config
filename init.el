@@ -1,5 +1,4 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/magit/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/groovy-modes"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
@@ -38,11 +37,6 @@
     ; For Mac OS X
     (set-face-attribute 'default nil
 			:family "Liberation Mono" :height 130 :weight 'regular))
-
-
-;;;; magit (git integration)
-(require 'magit)
-(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; Do not load evil-mode because I do not like inconsistent editing behavior between buffers.
 ;(load-file (expand-file-name "~/.emacs.d/lisp/enable-evil-mode.el"))
