@@ -29,14 +29,29 @@
 (setq inferior-lisp-program "sbcl")
 (setq slime-contribs '(slime-fancy))
 
-;;; Set font
-(if (eq system-type 'gnu/linux)
-    ; For linux
-    (set-face-attribute 'default nil
-			:family "Liberation Mono" :height 115 :weight 'regular)
-    ; For Mac OS X
-    (set-face-attribute 'default nil
-			:family "Liberation Mono" :height 130 :weight 'regular))
+(defun zk-theme-day ()
+    (interactive)
+    (if (eq system-type 'gnu/linux)
+        ;; For linux
+        (set-face-attribute 'default nil
+                            :family "Liberation Mono" :height 115 :weight 'regular)
+      ;; For Mac OS X
+      (set-face-attribute 'default nil
+                          :family "Liberation Mono" :height 130 :weight 'regular))
+  (custom-set-variables
+   '(custom-enabled-themes (quote (tomorrow-day)))))
+
+(defun zk-theme-night ()
+    (interactive)
+    (if (eq system-type 'gnu/linux)
+        ;; For linux
+        (set-face-attribute 'default nil
+                            :family "Terminus" :height 120 :weight 'regular)
+      ;; For Mac OS X
+      (set-face-attribute 'default nil
+                          :family "Liberation Mono" :height 130 :weight 'regular))
+  (custom-set-variables
+   '(custom-enabled-themes (quote (tomorrow-night-eighties)))))
 
 ;; Do not load evil-mode because I do not like inconsistent editing behavior between buffers.
 ;(load-file (expand-file-name "~/.emacs.d/lisp/enable-evil-mode.el"))
@@ -214,7 +229,6 @@
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(c-echo-syntactic-information-p t)
- '(custom-enabled-themes (quote (tomorrow-day)))
  '(custom-safe-themes
    (quote
     ("1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" "7f1263c969f04a8e58f9441f4ba4d7fb1302243355cb9faecb55aec878a06ee9" "be73fbde027b9df15a98a044bcfff4d46906b653cb6eef0d98ebccb7f8425dc9" "109c37722f5b922ab2c023d364bbe3bd1e2a49e6c3267ff7bca2ccdddbf9f9c2" "b6c88a4c9c7a8ace5c1d1c7fc61b9a76142a079ba398e61c8a59161427538c50" "684117b150429c5082829f7fdf1eaa003969f74cfc835d6807fda10d642e7049" "791364f64b4ab3526f8b885e0945d1208637ea4bd13ca269a9c52750fb2d9d1e" "6d77a9905ec4344df3646e0550cb28720bf11bc808f462b3c206fcb12d07cfd6" "2bfe2084cf94c9c4c1e9e3f9a2d43b0096dbf0373bbde7a7ae95996e87d44b08" "6f1b7c39c2b868da0d58ebb4a6ac278654a7c34b9ba22c9ca5a53e7396268729" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
@@ -291,3 +305,4 @@
 (require 'zk-go-to-char)
 (global-set-key (kbd "C-f") 'zk-go-to-char-forward)
 (global-set-key (kbd "C-b") 'zk-go-to-char-backward)
+(zk-theme-day)
