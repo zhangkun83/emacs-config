@@ -6,3 +6,4 @@ Xft.antialias: 1
 Xft.hinting: 0
 Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
+Xcursor.theme: DMZ-Black
