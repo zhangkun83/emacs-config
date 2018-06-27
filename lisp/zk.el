@@ -259,6 +259,27 @@ or code block or class/function definitions that end with '}'"
   (isearch-repeat 'forward)
   (goto-char isearch-other-end))
 
+(defun zk-shell-command-current-file (command)
+  "Run a shell command for the current file"
+  (interactive (list (read-string (format "Shell command with \"%s\": " (buffer-name)))))
+  ;;(interactive "sShell command for: ")
+  (let ((output-buffer-name "*zk-shell-command-current-file*")
+        (command-args (split-string command)))
+    (let ((program (car command-args))
+          (program-args (cdr command-args))
+          (filename (buffer-file-name)))
+      (with-output-to-temp-buffer output-buffer-name
+        (with-current-buffer output-buffer-name
+          (let ((buffer-read-only nil))
+            (insert "Executing: " (format "%s" command-args) " \"" filename "\"\n\n")))
+        ;; Assemble the call-process call, then evaluate it
+        (let ((call-process-form
+               (append
+                (list 'call-process program nil output-buffer-name t)
+                program-args
+                (list filename))))
+          (eval call-process-form))))))
+
 (global-set-key (kbd "C-s") 'zk-isearch-forward-to-beginning)
 (define-key isearch-mode-map (kbd "C-s") 'zk-isearch-repeat-forward-to-beginning)
 
