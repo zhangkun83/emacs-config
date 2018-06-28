@@ -194,6 +194,7 @@
 
 ; Java stacktrace detection in compilation-mode
 (require 'zk-java-stacktrace)
+(zk-java-stacktrace-detection-enable)
 (global-set-key (kbd "C-x \\") 'compile)
 (global-set-key (kbd "C-x |") 'compilation-minor-mode)
 

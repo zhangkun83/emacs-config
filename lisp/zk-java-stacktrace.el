@@ -4,7 +4,7 @@
   (let ((relative-path
          (concat (replace-regexp-in-string "\\." "/" (match-string 1))
                  (match-string 2))))
-    (concat zk-project-root "/SRCFILES_JAVA_LINKS/" relative-path)))
+    (concat zk-project-index-path "/JAVA_LINKS/" relative-path)))
 
 (defun zk-java-stacktrace-detection-enable ()
   "Enable zk's Java stack trace detection for compilation mode.
