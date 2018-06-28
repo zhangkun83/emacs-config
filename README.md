@@ -1,6 +1,6 @@
 This is my Emacs configuration.
 
-I am using it with Emacs 25.1
+I am using it with Emacs 26.1
 
 Installation
 ============
@@ -28,7 +28,8 @@ Tags
 Either **etags** or the **ctags** that comes with major Linux
 distributions won't correctly parse Java generics. **exuberant etags**
 does parse Java generics correctly, but is buggy. I find
-[ctags.io](https://github.com/universal-ctags/ctags) works best.
+[ctags.io](https://github.com/universal-ctags/ctags) works best, which
+is what my code indexing tool (`zkindex`) uses.
 
 Font
 ----
