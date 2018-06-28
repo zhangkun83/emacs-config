@@ -6,7 +6,7 @@
   (interactive "DProject root: ")
   (setq zk-project-root f)
   (message "Project root set as %s" f)
-  (setq tags-file-name (concat f "TAGS")))
+  (setq zk-project-index-path (expand-file-name (concat "~/.zk/index/" zk-project-root))))
 
 (zk-set-project-root zk-project-root)
 
@@ -27,7 +27,7 @@
   (interactive
    (list (ido-completing-read "Find a src file: "
                               (-map 'zk-project-get-relative-path
-                               (process-lines "bash" "-c" (concat "cat '" zk-project-root "/SRCFILES'; echo -n"))))))
+                               (process-lines "bash" "-c" (concat "cat '" zk-project-index-path "/SRCFILES'; echo -n"))))))
   (find-file (zk-project-restore-absolute-path f)))
 
 (defun zk-project-get-relative-path(absolute-path)
@@ -82,8 +82,7 @@ which must start with 'import '. It doesn't remove the trailing semicolon."
 			     nil nil default-input))))
   (let ((result
 	 (ido-completing-read "Insert import: "
-			  (process-lines "bash" "-c"
-					 (concat "zk-find-java-import '" class-name "' '" zk-project-root "/SRCFILES'")))))
+			  (process-lines "grep" "-F" class-name (concat zk-project-index-path "/JAVA_IMPORTS")))))
     (progn
       ;; Find the insertion point
       (push-mark)

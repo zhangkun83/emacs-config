@@ -66,7 +66,7 @@
 (defun zk-load-tags-if-not-loaded ()
   (interactive)
   (unless (get-buffer "TAGS")
-    (visit-tags-table zk-project-root)))
+    (visit-tags-table zk-project-index-path)))
 
 (global-set-key "\M-?" 'etags-select-find-tag-at-point)
 (global-set-key "\M-." 'etags-select-find-tag)

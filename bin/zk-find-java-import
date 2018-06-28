@@ -1,6 +1,0 @@
-#!/bin/bash
-# Look for Java import statements of the given class from the files
-# listed in SRCFILES
-CLASS=$1
-SRCFILES_PATH="$2"
-cat "$SRCFILES_PATH" | xargs grep -h "^import .*\\<$1\\>;\$" | sort | uniq
