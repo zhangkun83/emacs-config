@@ -208,8 +208,10 @@
     (save-some-buffers)
     (desktop-save-in-desktop-dir)))
 (global-set-key [f6] 'zk-save-everything)
-(global-set-key [f7] 'zk-shell-command-current-file)
 (global-set-key [f8] 'revert-buffer)
+
+(global-set-key (kbd "C-c p") 'zk-insert-file-path-of-a-buffer)
+(define-key minibuffer-local-map (kbd "C-c p") 'zk-minibuffer-insert-current-file-path)
 
 (defun zk-restore-desktop(bool)
   "Restore the desktop previously saved for the server with the same name"
