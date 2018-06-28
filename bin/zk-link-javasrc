@@ -21,6 +21,7 @@ cd "$ZK_PROJECT_ROOT"
 
 last_update_timestamp=0
 
+SRC_LIST_FILE="$HOME/.zk/index/$ZK_PROJECT_ROOT/SRCFILES"
 OUTPUT_DIR="$HOME/.zk/index/$ZK_PROJECT_ROOT/JAVA_LINKS"
 
 TIMESTAMP_FILE="$OUTPUT_DIR/.timestamp"
@@ -33,7 +34,7 @@ fi
 touch -a -m "$TIMESTAMP_FILE"
 
 echo -n "Linking java files ..."
-grep '\.java$' SRCFILES | while read file; do
+grep '\.java$' "$SRC_LIST_FILE" | while read file; do
     file_timestamp=$(file_last_modified_time "$file")
     if [[ "$file_timestamp" -gt "$last_update_timestamp" ]]; then
         dest=$(grep '^package .*;' "$file" | sed -e 's/^package //g' -e 's/;$//g' -e 's/\./\//g')
