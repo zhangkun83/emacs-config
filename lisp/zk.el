@@ -82,7 +82,7 @@ which must start with 'import '. It doesn't remove the trailing semicolon."
 			     nil nil default-input))))
   (let ((result
 	 (ido-completing-read "Insert import: "
-			  (process-lines "grep" "-F" class-name (concat zk-project-index-path "/JAVA_IMPORTS")))))
+			  (process-lines "grep" "-F" (concat "." class-name ";") (concat zk-project-index-path "/JAVA_IMPORTS")))))
     (progn
       ;; Find the insertion point
       (push-mark)
