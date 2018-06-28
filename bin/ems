@@ -6,4 +6,4 @@ if [ "$#" -lt 1 ]; then
 fi
 server_name="$1"
 shift
-ZK_EMACS_SERVER_NAME="$server_name" emacs "$@"
+ZK_EMACS_SERVER_NAME="$server_name" emacs --title="$server_name@emacs" "$@"
