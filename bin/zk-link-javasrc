@@ -33,7 +33,7 @@ fi
 
 touch -a -m "$TIMESTAMP_FILE"
 
-echo -n "Linking java files ..."
+echo "Linking java files ..."
 grep '\.java$' "$SRC_LIST_FILE" | while read file; do
     file_timestamp=$(file_last_modified_time "$file")
     if [[ "$file_timestamp" -gt "$last_update_timestamp" ]]; then
@@ -48,4 +48,4 @@ grep '\.java$' "$SRC_LIST_FILE" | while read file; do
         fi
     fi
 done
-echo Done
+

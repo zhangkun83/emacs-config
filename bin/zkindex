@@ -34,4 +34,4 @@ ctags -e -L - < "$SRC_LIST_FILE"
 echo "Regenerating JAVA_IMPORTS ..."
 cat "$SRC_LIST_FILE" | grep '\.java$' | xargs grep -h "^import .*\\<.*\\>;$" | sort | uniq > JAVA_IMPORTS
 
-echo "Done"
+zk-link-javasrc

@@ -10,12 +10,6 @@
 
 (zk-set-project-root zk-project-root)
 
-(defun zk-index ()
-  "Regenerate SRCFILES and TAGS."
-  (interactive)
-  (shell-command "zkindex")
-  (shell-command "zk-link-javasrc"))
-
 (defun zk-grep (pattern)
   "Grep through the files from SRCFILES."
   (interactive "sGrep in src files: ")
