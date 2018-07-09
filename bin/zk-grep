@@ -8,4 +8,4 @@ if [ -z "$ZK_PROJECT_ROOT" ]; then
 fi
 
 cd "$ZK_PROJECT_ROOT"
-cat SRCFILES | xargs grep -n "$@"
+cat "$HOME/.zk/index/$ZK_PROJECT_ROOT/SRCFILES" | xargs grep -n "$@"
