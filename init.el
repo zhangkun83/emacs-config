@@ -2,8 +2,6 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/groovy-modes"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/slime"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/color-themes"))
-(add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/color-themes"))
 
 ;; Load site-specific bits
 (load "init-site.el")
@@ -13,10 +11,6 @@
 
 ;; Disable scroll bar
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-;; Disable menu bar
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
 
 ;; Set default browser to chrome
 (setq browse-url-browser-function 'browse-url-generic
@@ -32,33 +26,6 @@
 (require 'slime)
 (setq inferior-lisp-program "sbcl")
 (setq slime-contribs '(slime-fancy))
-
-(defun zk-theme-day ()
-    (interactive)
-    (if (eq system-type 'gnu/linux)
-        ;; For linux
-        (set-face-attribute 'default nil
-                            :family "Liberation Mono" :height 115 :weight 'regular)
-      ;; For Mac OS X
-      (set-face-attribute 'default nil
-                          :family "Liberation Mono" :height 130 :weight 'regular))
-  (custom-set-variables
-   '(custom-enabled-themes (quote (tomorrow-day)))))
-
-(defun zk-theme-night ()
-    (interactive)
-    (if (eq system-type 'gnu/linux)
-        ;; For linux
-        (set-face-attribute 'default nil
-                            :family "Terminus" :height 120 :weight 'regular)
-      ;; For Mac OS X
-      (set-face-attribute 'default nil
-                          :family "Liberation Mono" :height 130 :weight 'regular))
-  (custom-set-variables
-   '(custom-enabled-themes (quote (tomorrow-night-eighties)))))
-
-;; Do not load evil-mode because I do not like inconsistent editing behavior between buffers.
-;(load-file (expand-file-name "~/.emacs.d/lisp/enable-evil-mode.el"))
 
 ;;;; etags-select (better ctags search)
 
@@ -77,7 +44,6 @@
 
 ;;; Always do case-sensitive search for tags
 (setq-default tags-case-fold-search nil)
-
 
 ;;;; Don't enable semantic (semantic doesn't work if Java file contains generics)
 ;;(semantic-mode 1)
@@ -198,29 +164,10 @@
 (global-set-key (kbd "C-x \\") 'compile)
 (global-set-key (kbd "C-x |") 'compilation-minor-mode)
 
-; Setup auto-saving desktop, which is unfortunately necessary because emacs
-; occasionally freezes when idle.
-(require 'desktop)
-
-(defun zk-save-everything()
-  "Save all files and the desktop"
-  (interactive)
-  (progn
-    (save-some-buffers)
-    (desktop-save-in-desktop-dir)))
-(global-set-key [f6] 'zk-save-everything)
 (global-set-key [f8] 'revert-buffer)
 
 (global-set-key (kbd "C-c p") 'zk-insert-file-path-of-a-buffer)
 (define-key minibuffer-local-map (kbd "C-c p") 'zk-minibuffer-insert-current-file-path)
-
-(defun zk-restore-desktop(bool)
-  "Restore the desktop previously saved for the server with the same name"
-  (interactive (list (y-or-n-p (concat "Load the desktop from " desktop-dirname "? "))))
-  (if bool (desktop-read desktop-dirname)))
-
-;;; Allow shell buffers' contents to be saved
-(require 'zk-desktop-save-shell)
 
 (add-hook 'shell-mode-hook
           (lambda()
@@ -233,80 +180,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(c-echo-syntactic-information-p t)
- '(custom-safe-themes
-   (quote
-    ("1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" "7f1263c969f04a8e58f9441f4ba4d7fb1302243355cb9faecb55aec878a06ee9" "be73fbde027b9df15a98a044bcfff4d46906b653cb6eef0d98ebccb7f8425dc9" "109c37722f5b922ab2c023d364bbe3bd1e2a49e6c3267ff7bca2ccdddbf9f9c2" "b6c88a4c9c7a8ace5c1d1c7fc61b9a76142a079ba398e61c8a59161427538c50" "684117b150429c5082829f7fdf1eaa003969f74cfc835d6807fda10d642e7049" "791364f64b4ab3526f8b885e0945d1208637ea4bd13ca269a9c52750fb2d9d1e" "6d77a9905ec4344df3646e0550cb28720bf11bc808f462b3c206fcb12d07cfd6" "2bfe2084cf94c9c4c1e9e3f9a2d43b0096dbf0373bbde7a7ae95996e87d44b08" "6f1b7c39c2b868da0d58ebb4a6ac278654a7c34b9ba22c9ca5a53e7396268729" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(dabbrev-case-replace nil)
- '(fci-rule-color "#c7c7c7")
  '(font-use-system-font t)
- '(hl-paren-background-colors (quote ("#2492db" "#95a5a6" nil)))
- '(hl-paren-colors (quote ("#ecf0f1" "#ecf0f1" "#c0392b")))
  '(ido-enable-flex-matching nil)
  '(inhibit-startup-screen t)
- '(nrepl-message-colors
-   (quote
-    ("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c")))
  '(ns-command-modifier nil)
  '(org-startup-indented t)
- '(pdf-view-midnight-colors (quote ("#232333" . "#c7c7c7")))
- '(sml/active-background-color "#34495e")
- '(sml/active-foreground-color "#ecf0f1")
- '(sml/inactive-background-color "#dfe4ea")
- '(sml/inactive-foreground-color "#34495e")
- '(tags-revert-without-query t)
- '(vc-annotate-background "#d4d4d4")
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#437c7c")
-     (40 . "#336c6c")
-     (60 . "#205070")
-     (80 . "#2f4070")
-     (100 . "#1f3060")
-     (120 . "#0f2050")
-     (140 . "#a080a0")
-     (160 . "#806080")
-     (180 . "#704d70")
-     (200 . "#603a60")
-     (220 . "#502750")
-     (240 . "#401440")
-     (260 . "#6c1f1c")
-     (280 . "#935f5c")
-     (300 . "#834744")
-     (320 . "#732f2c")
-     (340 . "#6b400c")
-     (360 . "#23733c"))))
- '(vc-annotate-very-old-color "#23733c"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-
-;;; Make git use "cat" instead of "less"
-(setenv "PAGER" "cat")
-
-;;; Start a server
-(setq server-socket-dir "~/.emacs.d/sockets")
-(let ((env_server_name (getenv "ZK_EMACS_SERVER_NAME")))
-  (if env_server_name
-      (progn
-	(setq server-name (getenv "ZK_EMACS_SERVER_NAME"))
-	(server-start)
-	(setenv "EDITOR" (concat "open-in-emacs-server " server-name))
-	(setenv "P4EDITOR" (concat "open-in-emacs-server " server-name))
-	(setq frame-title-format '("%b - " server-name "@emacs"))
-	(setq desktop-dirname (concat "~/.emacs.d/saved-desktops/" server-name))
-	(make-directory desktop-dirname t))
-    (progn
-      	(setq frame-title-format '("%b - emacs"))
-	(warn "Server name was not specified. Won't start a server. Use \"ems\" command to start emacs with a server."))))
+ '(tags-revert-without-query t))
 
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -314,5 +195,5 @@
 (require 'zk-go-to-char)
 (global-set-key (kbd "C-f") 'zk-go-to-char-forward)
 (global-set-key (kbd "C-b") 'zk-go-to-char-backward)
-(zk-theme-day)
-(blink-cursor-mode t)
+
+

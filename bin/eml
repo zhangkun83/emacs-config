@@ -1,9 +1,0 @@
-#!/bin/bash
-# List all running emacs servers
-serverdir="$HOME/.emacs.d/sockets"
-for file in ${serverdir}/*; do
-  if [[ -S ${file} ]]; then
-    printf '%s\t%s\n' "${file##*/}" $(fuser "${file}" 2> /dev/null)
-  fi
-done
-
