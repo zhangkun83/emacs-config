@@ -315,3 +315,4 @@
 (global-set-key (kbd "C-f") 'zk-go-to-char-forward)
 (global-set-key (kbd "C-b") 'zk-go-to-char-backward)
 (zk-theme-day)
+(blink-cursor-mode t)
