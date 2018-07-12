@@ -32,7 +32,7 @@ URxvt*iso14755: False
 *.color11:      #b89859
 
 ! blue
-*.color4:       #5f819d
+*.color4:       #1f219d
 *.color12:      #81a2be
 
 ! magenta
