@@ -250,7 +250,8 @@ or code block or class/function definitions that end with '}'"
   "Do a forward repeat search and jump to the beginning of the search-term."
   (interactive)
   (isearch-repeat 'forward)
-  (goto-char isearch-other-end))
+  (if isearch-other-end
+    (goto-char isearch-other-end)))
 
 (defun zk-insert-file-path-of-a-buffer (f)
   "Insert the full path of a buffer's file"
