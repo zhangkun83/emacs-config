@@ -1,2 +1,2 @@
 #!/bin/bash
-tmux attach-session -t "$1"
+tmux attach-session -d -t "$1"
