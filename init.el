@@ -190,6 +190,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(c-echo-syntactic-information-p t)
+ '(case-fold-search nil)
  '(dabbrev-case-replace nil)
  '(font-use-system-font t)
  '(ido-enable-flex-matching nil)
