@@ -56,9 +56,9 @@ They must not be equal, and must start with 'import '."
           nil (string< p1 p2)))))
 
 (defun zk-extract-package-name-from-import (line)
-  "Extracts a java package name out of the import line,
-which must start with 'import '. It doesn't remove the trailing semicolon."
-  (replace-regexp-in-string "^import \\(static \\)?" "" line))
+  "Extracts a java package name out of the import line, which must start with 'import '."
+  (replace-regexp-in-string
+   ";.*" "" (replace-regexp-in-string "^import \\(static \\)?" "" line)))
 
 (defun zk-java-identifier-at-point ()
 ;; sexp includes other non-identifier characters like @ in @Test
