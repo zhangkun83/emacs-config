@@ -81,7 +81,11 @@ They must not be equal, and must start with 'import '."
       ;; Find the insertion point
       (push-mark)
       (goto-char (point-min))
-      (let ((in-import-zone-p nil) (at-insert-point-p nil) current-line (continue-p t))
+      (let ((in-import-zone-p nil)
+            (at-insert-point-p nil)
+            (current-line nil)
+            (prev-line-empty-p t)
+            (continue-p t))
 	(while continue-p
 	  (setq current-line (zk-trim-string (thing-at-point 'line)))
 	  (cond ((string= current-line result) ; import already there
@@ -90,18 +94,34 @@ They must not be equal, and must start with 'import '."
                 ((string-prefix-p "package " current-line)
                  (setq in-import-zone-p t))
                 ((string-prefix-p "import " current-line)
-                 (if (zk-java-import-line< result current-line) (setq at-insert-point-p t)))
+                 (when (zk-java-import-line< result current-line)
+                   (when (and (not (string-prefix-p "import static " current-line))
+                              (string-prefix-p "import static " result))
+                     ;; Inserting the last static import. Make sure
+                     ;; there is an empty line after it
+                     (unless prev-line-empty-p (newline))
+                     ;; Insert before the empty line
+                     (previous-line))
+                   (setq at-insert-point-p t)))
                 ((not (string= "" current-line))
-                 (if in-import-zone-p (setq at-insert-point-p t))))
+                 (when in-import-zone-p
+                   ;; First line after the import zone.
+                   ;; Make sure there is an empty line at the end of the import zone.
+                   (unless prev-line-empty-p (newline))
+                   ;; Insert before the empty line
+                   (previous-line)
+                   (setq at-insert-point-p t))))
 	  (if at-insert-point-p
 	      (progn
 		(insert result)
 		(insert "\n")
                 (forward-line -1)  ; Place the cursor on the inserted line
 		(message "Import inserted: %s" result)
+                (save-buffer)
 		(setq continue-p nil))
 	    (if (= 1 (forward-line 1))
-		(setq continue-p nil))))))))
+		(setq continue-p nil)))
+          (setq prev-line-empty-p (string= "" current-line)))))))
 
 (defun zk-java-at-end-of-thing-p ()
   "Define the end of a java thing, which is a statement ending with ';',
