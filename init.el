@@ -197,6 +197,7 @@
  '(inhibit-startup-screen t)
  '(ns-command-modifier nil)
  '(org-startup-indented t)
+ '(fci-rule-character ?│)
  '(tags-revert-without-query t))
 
 (put 'narrow-to-region 'disabled nil)
