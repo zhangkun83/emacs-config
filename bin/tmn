@@ -1,3 +1,2 @@
 #!/bin/bash
-export ZK_PROJECT_ROOT="$PWD"
 exec tmux new-session -s "$1"
