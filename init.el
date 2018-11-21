@@ -173,6 +173,15 @@
 
 (global-set-key [f8] 'revert-buffer)
 
+(defun zk-prev-window()
+  "Switch to previous window"
+  (interactive)
+  (other-window -1))
+
+(global-set-key [f5] 'zk-prev-window)
+(global-set-key [f6] 'other-window)
+(global-set-key [f7] 'switch-to-buffer)
+
 (global-set-key (kbd "C-c p") 'zk-insert-file-path-of-a-buffer)
 (global-set-key (kbd "C-c f") 'zk-open-file-path-from-region)
 (define-key minibuffer-local-map (kbd "C-c p") 'zk-minibuffer-insert-current-file-path)
